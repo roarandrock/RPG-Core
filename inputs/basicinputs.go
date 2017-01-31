@@ -2,7 +2,7 @@ package inputs
 
 import "fmt"
 
-//Numberinput
+//Numberinput takes in an expected range and returns the number
 func Numberinput(l int) int {
 	var i int
 	_, err := fmt.Scan(&i)
@@ -17,6 +17,7 @@ func Numberinput(l int) int {
 	return i
 }
 
+//Stringinput takes in a string with an expected number of words, returns the string
 func Stringinput(l int) string {
 	var s string
 	i, err := fmt.Scan(&s)
@@ -31,4 +32,14 @@ func Stringinput(l int) string {
 		i, err = fmt.Scan(&s)
 	}
 	return s
+}
+
+//StringarrayInput takes in string array and outputs the player's selection
+func StringarrayInput(sa []string) int {
+	//can make a standalone function that takes a string array, makes a loop and a number input
+	for i := 0; i < len(sa); i++ {
+		fmt.Printf("%v. %s\n", i+1, sa[i])
+	}
+	d1 := Numberinput(len(sa))
+	return d1
 }

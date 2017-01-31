@@ -1,6 +1,17 @@
 /*
 Author: roarandrock
 
+Actions:
+Provide a dynamic list. not always the same.
+Look, Move, Use, Save
+
+Content:
+Location,  need a rough map
+
+Models:
+Locales, Items, Characters
+
+
 Notes:
 Can declare fmt.Println as a variable for ease!
 var p = fmt.Println
@@ -30,4 +41,7 @@ func main() {
 	cp, err := flow.Intro()
 	check.Check(err)
 	cp, err = flow.Mainflow(cp)
+	check.Check(err)
+	_, err = flow.Finale(cp)
+	check.Check(err)
 }
