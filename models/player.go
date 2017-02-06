@@ -6,4 +6,5 @@ type Player struct {
 	Height int
 	Loc    int
 	Cont   bool
+	Health int
 }

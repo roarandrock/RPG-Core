@@ -34,18 +34,15 @@ func Intro() (models.Player, error) {
 	switch r1 {
 	case 1:
 		cp, err = newgame()
+		models.Characterset() // cheating
+		models.Itemset()
+		models.Monsterset()
 	case 2:
 		cp, err = opensave()
+		models.Characterset() // cheating
+		models.Itemset()
+		models.Monsterset()
 	}
-	//Describes starting place
-	switch cp.Height {
-	case 1:
-		fmt.Println(cp.Name, " is tall")
-	case 2:
-		fmt.Println(cp.Name, " is short")
-	}
-	cl := models.LocationGet(cp.Loc)
-	fmt.Println("You are in the", cl.Name)
 	return cp, err
 }
 
@@ -85,6 +82,7 @@ func newplayer() models.Player {
 	np.Height = inputs.Numberinput(2)
 	np.Loc = 1
 	np.Cont = true
+	np.Health = 100
 	return np
 }
 
@@ -115,6 +113,7 @@ func opensave() (models.Player, error) {
 	savef.ReadAt(b1, n64)
 	np.Loc, err = strconv.Atoi(string(b1))
 	np.Cont = true
+	np.Health = 100 //cheat
 	savef.Sync()
 
 	return np, err

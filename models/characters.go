@@ -7,6 +7,7 @@ type Character struct {
 	Friendly bool
 	Status   string
 	Talk     []string
+	Depth    int
 }
 
 /* Character notes:
@@ -24,31 +25,35 @@ Maybe seperate models? Characters are specific, randoms something else
 
 Dialog - Greeting, exit, panic
 Separate conversation data
+
+//Mike, Josh, Susie and Veronica
 */
 
-var (
-	steve    = Character{"Steve", 1, true, "Real", []string{"Hello", "Goodbye", "Run!"}}
-	chad     = Character{"Chad", 1, true, "Real", []string{"Sup", "Lates", "Holy fucksticks!"}}
-	veronica = Character{"Veronica", 2, true, "Imaginary", []string{"Hello tiger", "See you soon", "Are you scared yet?"}}
-)
-
 //Charactermap maps characters by name
-var charactermap = map[string]Character{
-	steve.Name:    steve,
-	chad.Name:     chad,
-	veronica.Name: veronica,
+var charactermap = map[string]Character{}
+
+//Characterset sets initial charactermap
+func Characterset() {
+	//defaults
+	mike := Character{"Mike", 1, true, "Real", []string{"Hello", "Goodbye", "Run!"}, 3}
+	josh := Character{"Josh", 1, true, "Real", []string{"Sup", "Lates", "Holy fucksticks!"}, 3}
+	veronica := Character{"Veronica", 2, true, "Imaginary", []string{"Hello tiger", "See you soon", "Are you scared yet?"}, 3}
+
+	CharacterUpdate(mike)
+	CharacterUpdate(josh)
+	CharacterUpdate(veronica)
 }
 
 //CharacterGetByName grabs current item by number
 func CharacterGetByName(c string) Character {
-	cm := charactermap
+	cm := cmap()
 	i := cm[c]
 	return i
 }
 
 //CharacterGetByLoc grabs character by location
 func CharacterGetByLoc(l int) ([]Character, int) {
-	cm := charactermap
+	cm := cmap()
 	cslice := []Character{}
 	i := 0
 	for _, v := range cm {
@@ -58,4 +63,15 @@ func CharacterGetByLoc(l int) ([]Character, int) {
 		}
 	}
 	return cslice, i
+}
+
+func cmap() map[string]Character {
+	return charactermap
+}
+
+//CharacterUpdate allows updates to characters
+func CharacterUpdate(cc Character) Character {
+	cm := cmap()
+	cm[cc.Name] = cc
+	return cc
 }
