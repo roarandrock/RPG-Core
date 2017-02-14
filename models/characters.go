@@ -6,7 +6,6 @@ type Character struct {
 	Loc      int
 	Friendly bool
 	Status   string
-	Talk     []string
 	Depth    int
 }
 
@@ -18,10 +17,6 @@ Need to save Characters, tied to having separate starting and in-game maps
 Option - initial scripts and save scripts that define the characters/world.
 Then when I create new or open, it goes to the script and runs it to "set the world"
 Will need functions like CreateCharacter that call from the initial/saved model to create the character map
-
-Need to auto populate maps and options, maybe make an array of characters first. Then can cycle through it
-Need a way to generate random monsters versus NPCs?
-Maybe seperate models? Characters are specific, randoms something else
 
 Dialog - Greeting, exit, panic
 Separate conversation data
@@ -35,9 +30,9 @@ var charactermap = map[string]Character{}
 //Characterset sets initial charactermap
 func Characterset() {
 	//defaults
-	mike := Character{"Mike", 1, true, "Real", []string{"Hello", "Goodbye", "Run!"}, 3}
-	josh := Character{"Josh", 1, true, "Real", []string{"Sup", "Lates", "Holy fucksticks!"}, 3}
-	veronica := Character{"Veronica", 2, true, "Imaginary", []string{"Hello tiger", "See you soon", "Are you scared yet?"}, 3}
+	mike := Character{"Mike", 1, true, "Real", 3}
+	josh := Character{"Josh", 1, true, "Real", 3}
+	veronica := Character{"Veronica", 40, true, "Imaginary", 3}
 
 	CharacterUpdate(mike)
 	CharacterUpdate(josh)

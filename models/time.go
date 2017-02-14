@@ -52,6 +52,11 @@ func UpdateTime(dt int) {
 	}
 }
 
+//SetTime sets the time to the time provided
+func SetTime(ct int) {
+	currenttime = ct
+}
+
 //UpdateDay updates the day per input
 func UpdateDay(dd int) {
 	daycount = daycount + dd

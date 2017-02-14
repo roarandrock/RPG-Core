@@ -22,10 +22,13 @@ Or use depth at surface level conversation then launch Tangents? Easier in short
 
 need to add options to get items from Josh and Mike
 
+Need to segegrate options based on where player is in the story. Can either tie it to fixed chapters? or to individual events?
+For simplicity can leave it to player questions. Different questions as game goes one.
+
 */
 
 //Convo is base struct
-type convo struct {
+type Convo struct {
 	Character    models.Character
 	branch       int
 	depth        int
@@ -52,7 +55,8 @@ type presp struct {
 }
 
 var (
-	playerH = []string{"Hi. Fucker.", "Hello.", "Good to see you.", "Damn good to see you."}
+	//need to simplify and codify. And move to another file
+	playerH = []string{"Morning fucker.", "Hello.", "Good to see you."}
 	pq1     = presp{"How are you?", []string{"CA", "AS", "GB"}, 1, 0, 0}
 	pq2     = presp{"What's happening?", []string{"CA", "AS", "GB"}, 2, 0, 0}
 	pq3     = presp{"Can you help me?", []string{"CA"}, 3, 0, 0} //cheating
@@ -131,7 +135,7 @@ var (
 //Converser is called by mainflow to start conversation
 func Converser(cChar models.Character) {
 	//defaults, starting point
-	cc := convo{}
+	cc := Convo{}
 	cc.Character = cChar
 	cc.stilltalking = true
 	cc.depth = cc.Character.Depth
@@ -139,6 +143,10 @@ func Converser(cChar models.Character) {
 	var cr1 cresp
 	var ph1 presp
 	//conversation loop starts
+	//cheating to try some stuff
+	if cc.Character.Name == "Veronica" {
+		cc = ConverserV(cc)
+	}
 	for cc.stilltalking == true {
 		switch cc.qa { //modify to show all options available
 		case "H":
@@ -183,7 +191,7 @@ func Converser(cChar models.Character) {
 	}
 }
 
-func characterA(cpq presp, cc convo) (cresp, convo) {
+func characterA(cpq presp, cc Convo) (cresp, Convo) {
 	// set variables
 	var curresp cresp
 	var curcharM []cresp
@@ -229,7 +237,7 @@ func characterA(cpq presp, cc convo) (cresp, convo) {
 	switch cc.qa {
 	case "H":
 		//need to make character response matrix
-		crespM := [4]cresp{}
+		crespM := [3]cresp{}
 		curcharM = hi
 		//should fill a matrix to 5, so for each depth there is an answer.
 		//however for hello there are only 4 options
@@ -374,6 +382,7 @@ type dialog struct {
 }
 
 //testing tree
+//can make a let's get back to this later that stores the current branch?
 var (
 	pTest1 = dialog{words: "That's surprising. What's up?", branch1: &mR1}
 	mR1    = dialog{words: "Well, you know Josh?", branch1: &pR1, branch2: &pL1, branch3: &ptreeGB}
@@ -405,7 +414,7 @@ var (
 	mtreeGB  = dialog{words: "Lates."}
 )
 
-func ctang(cc convo, cr1 cresp) convo {
+func ctang(cc Convo, cr1 cresp) Convo {
 	tancont := true
 	pTan := pTest1
 	cTan := mR1 //could use depth check

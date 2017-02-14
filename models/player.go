@@ -8,3 +8,15 @@ type Player struct {
 	Cont   bool
 	Health int
 }
+
+var currentPlayer Player
+
+//GetCurrentPlayer returns current player struct
+func GetCurrentPlayer() Player {
+	return currentPlayer
+}
+
+//UpdateCurrentPlayer updates the current player struct
+func UpdateCurrentPlayer(np Player) {
+	currentPlayer = np
+}

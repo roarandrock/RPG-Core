@@ -1,6 +1,7 @@
 package combat
 
 import (
+	"RPG-Core/check"
 	"RPG-Core/inputs"
 	"RPG-Core/models"
 	"fmt"
@@ -21,7 +22,15 @@ func Fightflow(cp models.Player) models.Player {
 	//introduction
 	cm := mlist[0]
 	fmt.Println("You see a", cm.FullName)
-	fmt.Println(cm.Details)
+	if cm.ShortName == "smiler" {
+		met := check.Eventcheck(2)
+		if met == false {
+			sb := models.StoryblobGetByName(2)
+			fmt.Println(sb.Story)
+			sb.Shown = true
+			models.StoryblobUpdate(sb)
+		}
+	}
 	//fight selector
 	//Hearts, dice
 	cp = devildice(cp, cm)
@@ -37,7 +46,6 @@ var (
 )
 
 //works basically, need to add a bunch of flavor text
-//and mosnter turn
 func devildice(cp models.Player, cm models.Monster) models.Player {
 	fmt.Println("Welcome to Devil Dice") //rules?
 	fcont := true

@@ -1,6 +1,7 @@
 package flow
 
 import (
+	"RPG-Core/check"
 	"RPG-Core/combat"
 	"RPG-Core/conversation"
 	"RPG-Core/inputs"
@@ -94,13 +95,34 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 	case "Run":
 		//Go somewhere else fast!
 		fmt.Println("Nowhere to run")
+	case "Swim":
+		vm := models.StoryblobGetByName(5)
+		if vm.Shown == false {
+			fmt.Println("You look around, no one in sight. Take off your clothes are go swimming?")
+			r1 := inputs.StringarrayInput([]string{"Yes", "No"})
+			if r1 == 1 {
+				fmt.Println("You remove your dirty camp clothes and jump into the cold water. The shock awakens your body and you laugh.")
+				fmt.Println(vm.Story)
+				//actualy update
+				check.EventLoad(5)
+				vc := models.CharacterGetByName("Veronica")
+				models.CharacterUpdate(vc)
+				conversation.Converser(vc)
+				vm.Shown = true
+				models.StoryblobUpdate(vm)
+			} else {
+				fmt.Println("You lack a swimswuit. So you stand on the shoreline and look at the calm, cool water.")
+			}
+		} else {
+			fmt.Println("Veronica watches you swim. It's awkward.") //cheating
+		}
 	case "Menu":
 		//save, inventory, quit
 		fmt.Println("1. Save\n2. Inventory\n3. Quit")
 		m1 := inputs.Numberinput(3)
 		switch m1 {
 		case 1:
-			fmt.Println("This is where you would save")
+			saveFlow() //testing
 		case 2:
 			blist, _ := models.ItemGetByLoc(19)
 			fmt.Println("You are wearing a ", blist[0].ShortName)

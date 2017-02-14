@@ -6,7 +6,7 @@ type Monster struct {
 	ShortName string
 	Health    int
 	Loc       int
-	Details   string
+	Details   string //needed? Change, currently a duplicate of event where player meets it
 }
 
 var monstermap = map[string]Monster{}
