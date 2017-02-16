@@ -1,7 +1,6 @@
 package combat
 
 import (
-	"RPG-Core/check"
 	"RPG-Core/inputs"
 	"RPG-Core/models"
 	"fmt"
@@ -14,35 +13,21 @@ https://tour.golang.org/concurrency/6
 */
 
 //Fightflow come here to fight
-func Fightflow(cp models.Player) models.Player {
-	mlist, i := models.MonsterGetByLoc(cp.Loc)
-	if i > 1 {
-		fmt.Println("More monsters than one? Odd.")
-	}
-	//introduction
-	cm := mlist[0]
-	fmt.Println("You see a", cm.FullName)
-	if cm.ShortName == "smiler" {
-		met := check.Eventcheck(2)
-		if met == false {
-			sb := models.StoryblobGetByName(2)
-			fmt.Println(sb.Story)
-			sb.Shown = true
-			models.StoryblobUpdate(sb)
-		}
-	}
+func Fightflow(cp models.Player, cm models.Monster) models.Player {
+
 	//fight selector
 	//Hearts, dice
 	cp = devildice(cp, cm)
 	return cp
 }
 
-//Devil dice - 7 sided dice, 5 of them. Three rolls. Maybe reduce to 4?
+//Devil dice - 8 sided dice, 5 of them. Three rolls. Maybe reduce to 4?
 //Sun hurts them, Shadows hurt you, Moons reroll
 //Day you roll first, night they roll first
 
 var (
-	ddice = []string{"Sun", "Sun", "Moon", "Moon", "Shadow", "Shadow", "Shadow"} //add one more shadow?
+	ddice = []string{"Sun", "Sun", "Moon", "Moon", "Shadow", "Shadow", "Shadow", "Shadow"}
+	sides = 8
 )
 
 //works basically, need to add a bunch of flavor text
@@ -196,7 +181,7 @@ func ddturn() []ddie {
 }
 
 func diceroll() string {
-	n := Brng(7)
+	n := Brng(sides)
 	s1 := ddice[n-1]
 	return s1
 }

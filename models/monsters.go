@@ -7,6 +7,7 @@ type Monster struct {
 	Health    int
 	Loc       int
 	Details   string //needed? Change, currently a duplicate of event where player meets it
+	Engaged   bool   //for when player is fighting, talking to it
 }
 
 var monstermap = map[string]Monster{}
@@ -15,7 +16,7 @@ var monstermap = map[string]Monster{}
 func Monsterset() {
 	md1 := "A small critter scurries around the forest. It has two little arms and two little legs." +
 		"\nIt has too many little teeth in a perpetual smile. Everything is murky shadow except for that white smile."
-	minion := Monster{"Smiler", "smiler", 25, 8, md1}
+	minion := Monster{"Smiler", "smiler", 25, 8, md1, false}
 	MonsterUpdate(minion)
 }
 

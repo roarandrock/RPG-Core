@@ -3,6 +3,7 @@ package conversation
 import (
 	"RPG-Core/check"
 	"RPG-Core/inputs"
+	"RPG-Core/models"
 	"fmt"
 )
 
@@ -75,24 +76,28 @@ var (
 
 	ph1Test  = dialog{words: "test", branch1: &vGBt0}
 	ph1Event = dialog{words: "Event!", branch1: &vtest1} //for triggering events
-	ph1Exit  = dialog{}
+	ph1Exit  = dialog{words: "odd test", branch1: &vtest1}
 
 	ph2   = []string{"You again?", "Hello Veronica."}
 	pht2  = dialog{words: ph2[0], branch1: &vht21}
 	pht21 = dialog{words: ph2[1], branch1: &vht22}
 
-	//does circular referencing prevent me from looping back to the defaults? Can I use an event to get around this?
 	pdef = []string{"How are you?", "What's happening?", "Can you help me?"}
 	pdt1 = dialog{words: pdef[0], branch1: &vct1}
 	pdt2 = dialog{words: pdef[1], branch1: &vct2}
 	pdt3 = dialog{words: pdef[2], branch1: &vct3}
 
-	//No depth
 	vca1 = []string{"I'm feeling like p words. Perky, playful, poignant. What letter are you?",
 		"That's cruelly vague. With what sweetheat?", "Probably not. But I can humor you."}
 	vct1 = dialog{words: vca1[0], branch1: &pqt11, branch2: &pqt12, branch3: &pqt13}
 	vct2 = dialog{words: vca1[1], branch1: &pqt21, branch2: &pqt22}
-	vct3 = dialog{words: vca1[2], branch1: &pqt31, branch2: &pqt32}
+	//need to check for smiler event, kind of annoying this happens in two places
+	vct3 = dialog{words: vca1[2], branch1: &ph4smiler}
+	//for when player has not seen the smiler
+	vct36 = dialog{words: vca1[2], branch1: &pqt31}
+	//when the player has seen the smiler
+	vct37     = dialog{words: vca1[2], branch1: &pqt31, branch2: &pqt32}
+	ph4smiler = dialog{words: "Smiler Event x2!", branch1: &vtest1} //arg! events need stuff or they don't work
 
 	pqv1  = []string{"F for frustrated.", "H for happy.", "L for lost."} //event with entering letters?
 	pqt11 = dialog{words: pqv1[0], branch1: &vct21}
@@ -113,7 +118,7 @@ var (
 	pqt43 = dialog{words: pqv4[2], branch1: &vGBt3}
 
 	vca5  = []string{"Exactly.", "Really? You're not just kissing my ass?"}
-	vct51 = dialog{words: vca5[0], branch1: &pGBt0}
+	vct51 = dialog{words: vca5[0], branch1: &ph6event}
 	vct52 = dialog{words: vca5[1], branch1: &pqt511, branch2: &pqt512}
 
 	pqv51  = []string{"No.", "Yes."}
@@ -189,18 +194,23 @@ var (
 	pqt22 = dialog{words: pqv2[1], branch1: &vct32}
 	//pqt23 = dialog{words: pqv2[2], branch1: &vct33}
 	vca3 = []string{"It's a special place. Heavy with age and shadows. Did you see something?",
-		"\nI haven't met any of them. But this forest does have an impact on people. Did you notice something?"}
-	vct31 = dialog{words: vca3[0], branch1: &pqt301, branch2: &pqt302}
-	vct32 = dialog{words: vca3[1], branch1: &pqt301, branch2: &pqt302} //
-	//vct33 = dialog{}
-	pqv30  = []string{"No, nothing.", "I saw some creature in the forest. It was all teeth."} //make an event here to check if met any enemies?
-	pqt301 = dialog{words: pqv30[0], branch1: &vGBt3}
-	pqt302 = dialog{words: pqv30[1], branch1: &vct301}
-	vca31  = []string{"Adorable little bastards aren't they? I call them Smilers. Nasty bite of course. They like to play devil dice."}
-	vct301 = dialog{words: vca31[0], branch1: &pqt310, branch2: &pqt32} //apparantly allowed
-	pqv31  = []string{"That is not a normal animal. What are they?"}
-	pqt310 = dialog{words: pqv31[0], branch1: &vct320}
-	vca32  = []string{"Well how do you define a normal animal? Is a tapir a normal animal?" +
+		"I haven't met any of them. But this forest does have an impact on people. Did you notice something?"}
+	vct31 = dialog{words: vca3[0], branch1: &ph3smiler}
+	vct32 = dialog{words: vca3[1], branch1: &pqt301} //need something about other campers
+	//for if player has seen a smiler
+	vct33 = dialog{words: vca3[0], branch1: &pqt301, branch2: &pqt302}
+	//for when player has not seen a smiler
+	vct35 = dialog{words: vca3[0], branch1: &pqt301}
+
+	ph3smiler = dialog{words: "Smiler Event!", branch1: &vtest1} //arg! events need stuff or they don't work
+	pqv30     = []string{"No, nothing.", "I saw some creature in the forest. It was all teeth."}
+	pqt301    = dialog{words: pqv30[0], branch1: &vct69} //why is this an exit?
+	pqt302    = dialog{words: pqv30[1], branch1: &vct301}
+	vca31     = []string{"Adorable little bastards aren't they? I call them Smilers. Nasty bite of course. They like to play devil dice."}
+	vct301    = dialog{words: vca31[0], branch1: &pqt310, branch2: &pqt40} //apparantly allowed
+	pqv31     = []string{"That is not a normal animal. What are they?"}
+	pqt310    = dialog{words: pqv31[0], branch1: &vct320}
+	vca32     = []string{"Well how do you define a normal animal? Is a tapir a normal animal?" +
 		"\nAnyways, they are not animal. Or from here. They are denizen of the Shadowlands."}
 	vct320 = dialog{words: vca32[0], branch1: &pqt71, branch2: &pqt72}
 	pqv7   = []string{"What do you mean Shadowlands?", "What is it doing here?"}
@@ -211,21 +221,66 @@ var (
 	vct81 = dialog{words: vca8[0], branch1: &pdt3, branch2: &pqt72, branch3: &pGBt2}
 	vct82 = dialog{words: vca8[1], branch1: &pdt3, branch2: &pGBt2}
 
-	//can you help me?
-	pqv3  = []string{"Ha. Nevermind.", "Do you know about Devil Dice?"} //need to check notes
-	pqt31 = dialog{words: pqv3[0], branch1: &vGBt3}
-	pqt32 = dialog{words: pqv3[1], branch1: &vct42}
+	vca60    = []string{"Cool beans."}
+	vct69    = dialog{words: vca60[0], branch1: &ph6event}
+	ph6event = dialog{words: "Defaults event!", branch1: &vtest1}
+	vct70    = dialog{words: vca60[0], branch1: &pdt1, branch2: &pdt2, branch3: &pdt3}
 
-	vca4 = []string{"I know a bit. Certainly more than you." +
+	//can you help me?
+	pqv3  = []string{"Ha. Nevermind.", "Do you know how I can get past the monsters in the forest?"} //should be an event first to allow this option
+	pqt31 = dialog{words: pqv3[0], branch1: &vct69}
+	pqt32 = dialog{words: pqv3[1], branch1: &vct401}
+
+	vca40  = []string{"I wouldn't recommend petting it. Or heavy petting. It's a Shadow, it will probably play Devil Dice."}
+	vct401 = dialog{words: vca40[0], branch1: &pqt40}
+
+	pqv40 = []string{"What is Devil Dice?"}
+	pqt40 = dialog{words: pqv40[0], branch1: &vct42}
+
+	vca4 = []string{"I know a bit about it. Certainly more than you." +
 		"\nIt's a game from the Shadowlands. They like to play games, no different from people." +
-		"\nIt's considered a dignified alternative to kicking and biting and stabbing."} //she gives you dice? event?
+		"\nIt's considered a dignified alternative to kicking and biting and stabbing."}
 	//vct41 = dialog{}
-	vct42 = dialog{words: vca4[0], branch1: &pGBt0}
+	vct42 = dialog{words: vca4[0], branch1: &pqt410, branch2: &pqt411}
+
+	pqv41  = []string{"How do I play", "That's stupid"}
+	pqt410 = dialog{words: pqv41[0], branch1: &vct41}
+	pqt411 = dialog{words: pqv41[1], branch1: &vct69}
+
+	vca41 = []string{"You roll dice. And you get three rolls. But they're special dice. They have shadows, moons and suns on them." +
+		"\nYou're human right? So the shadows will hurt you. The suns will hurt a shadow creature. The moons give you extra rolls." +
+		"\nSo simple even a boy could do it. Even an incredibly handsome but stupid boy."}
+	vct41 = dialog{words: vca41[0], branch1: &pqt420, branch2: &pqt421}
+
+	pqv42  = []string{"Special Dice? Where can I get those?", "You're stupid handsome."}
+	pqt420 = dialog{words: pqv42[0], branch1: &vct420} //need event to get dice
+	pqt421 = dialog{words: pqv42[1], branch1: &vct421}
+
+	vca42 = []string{"Today is your lucky day tiger. I have a set that's just gathering dust." +
+		"\nIt's a basic set. Nothing fancy but they'll let you play against someone else." +
+		"\nThey are not a toy. Well they are a toy. But a toy that can actually hurt you. Like a trampoline or a matchbook.",
+		"Thank you. You know, I have a set of dice that's just gathering dust." +
+			"\nIt's a basic set. Nothing fancy but they'll let you play against someone else." +
+			"\nThey are not a toy. Well they are a toy. But a toy that can actually hurt you. Like a trampoline or a matchbook."}
+	vct420       = dialog{words: vca42[0], branch1: &pqvDiceEvent}
+	vct421       = dialog{words: vca42[1], branch1: &pqvDiceEvent}
+	pqvDiceEvent = dialog{words: "Dice event", branch1: &vtest1}
+
+	vct422 = dialog{words: "There you are. Enjoy. Don't kill yourself.", branch1: &pqt430, branch2: &pqt431, branch3: &pqt432}
+
+	pqv43  = []string{"Thanks.", "I'll be careful.", "Whatever."}
+	pqt430 = dialog{words: pqv43[0], branch1: &vct430}
+	pqt431 = dialog{words: pqv43[1], branch1: &vct430}
+	pqt432 = dialog{words: pqv43[2], branch1: &vct430}
+
+	vca43  = []string{"Indeed. See you around handsome."}
+	vct430 = dialog{words: vca43[0], branch1: &pGBt0} //finish
 
 	//these are not being used?
 	pqv6  = []string{"Do you know how to reach the mesa?"}
 	pqt61 = dialog{words: pqv6[0], branch1: &vct71}
 	vca7  = []string{"I absolutely do not. And if I did, I would not tell you. Too close to the Shadowlands."}
+	//it's like a portal to hell. But instead a portal to the shadowlands.
 	vct71 = dialog{words: vca7[0], branch1: &pqt71, branch2: &pqt43}
 
 	//messy goodbyes
@@ -263,7 +318,7 @@ var (
 	vtest1 = dialog{words: "No idea what you're going on about", branch1: &pGBt0}
 
 	vGB   = []string{"I'll try.", "Not funny. That Mike is a bad influence.", "Bye"}
-	vGBt0 = dialog{}
+	vGBt0 = dialog{words: "Odd test", branch1: &ph1Exit}
 	vGBt1 = dialog{words: vGB[0], branch1: &ph1Exit}
 	vGBt2 = dialog{words: vGB[1], branch1: &ph1Exit}
 	vGBt3 = dialog{words: vGB[2], branch1: &ph1Exit}
@@ -317,28 +372,65 @@ func ConverserV(cc Convo) Convo {
 func dialogchecker(ctan dialog, cc Convo) (dialog, Convo) {
 	var options []string
 	var r1 int
-	if *ctan.branch1 == pGBt0 { //checks if only GB is an option for player, can remove?
+	var v1 string
+	switch {
+	case *ctan.branch1 == pGBt0: //if there is no branch in the dialog, then it defaults to this one
+		fmt.Println("Test pGBt0 event triggered")
 		cc.stilltalking = false
-		v1 := "\"" + ctan.words + "\"" //displays Vs response
+		v1 = "\"" + ctan.words + "\"" //displays Vs response
 		fmt.Println(v1)
 		options = pvGB
 		r1 = inputs.StringarrayInput(options)
 		ctan = *pGBray[r1-1].branch1
 		v1 = "\"" + ctan.words + "\""
 		fmt.Println(v1)
-	}
-	if ctan == vGBt0 { //checks if v's response is goodbye, probably doesn't work
+	case *ctan.branch1 == ph1Exit: //for normal ending the conversation
+		fmt.Println("Test exit event triggered")
+		v1 = "\"" + ctan.words + "\"" //displays Vs response
+		fmt.Println(v1)
 		cc.stilltalking = false
-		fmt.Println("it's over oddly.")
-	}
-	if *ctan.branch1 == ph1Exit { //for normal ending the conversation
-		cc.stilltalking = false
-	}
-	if *ctan.branch1 == ph1Event { //this seems to work, needs to be the branches
+	case *ctan.branch1 == ph1Event: //this seems to work, needs to be the branches
 		v1 := "\"" + ctan.words + "\"" //displays Vs response
 		fmt.Println(v1)
 		fmt.Println("She faces into the forest. You dash to the shore and rapidly put on your clothes.")
 		ctan = vh124 //need a new ctan
+	case *ctan.branch1 == ph3smiler: //trying to get smiler event checked
+		fmt.Println("Test smiler event triggered")
+		//for when player sees smiler
+		sc := check.Eventcheck(2)
+		if sc == true {
+			fmt.Println("Test smiler event triggered 1")
+			ctan = vct33
+		} else {
+			fmt.Println("Test smiler event triggered 2")
+			ctan = vct35
+		}
+	case *ctan.branch1 == ph4smiler: //trying to get smiler event checked
+		fmt.Println("Test smiler event triggered")
+		//for when player sees smiler
+		sc := check.Eventcheck(2)
+		if sc == true {
+			fmt.Println("Test smiler event triggered 1")
+			ctan = vct37
+		} else {
+			fmt.Println("Test smiler event triggered 2")
+			ctan = vct36
+		}
+	case *ctan.branch1 == ph6event: //return to defaults
+		ctan = vct70
+	case *ctan.branch1 == pqvDiceEvent: //not checking if player already has them? Not checking if backpack is full
+		dd := models.ItemGetByName("devil dice")
+		if dd.Loc == 20 {
+			fmt.Println("\"But I see you already have a pair. Possibly my old pair. You hoarder.\"")
+			ctan = vct422 // can change this later, cheat
+		} else {
+			v1 := "\"" + ctan.words + "\"" //displays Vs response
+			fmt.Println(v1)
+			fmt.Println("She hands you a set of dice.")
+			dd.Loc = 20
+			models.ItemUpdate(dd)
+			ctan = vct422
+		}
 	}
 	return ctan, cc
 }

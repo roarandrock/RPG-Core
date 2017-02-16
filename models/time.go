@@ -61,3 +61,8 @@ func SetTime(ct int) {
 func UpdateDay(dd int) {
 	daycount = daycount + dd
 }
+
+//SetDay sets the day to the day provided
+func SetDay(cd int) {
+	daycount = cd
+}

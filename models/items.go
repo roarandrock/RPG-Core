@@ -22,10 +22,11 @@ type Item struct {
 	FullName  string
 	ShortName string
 	Size      string
-	iclass    string //battle, character, location
+	Iclass    string //battle, character, location
 	Loc       int
 	Details   string
 	LightBuff int
+	Ident     int //double digit ident
 }
 
 var itemmap = map[string]Item{}
@@ -37,15 +38,18 @@ func Itemset() {
 	md1 := "A handy map showing all the campground. Including how to get there."
 	fd1 := "A reliable flashlight."
 	bb1 := "A big backpack that can carry 1 large and 1 medium item. Or 2 medium items. Or 3 small items."
+	dd1 := "A set of devil dice. Each die is 8-sided. Four of the sides show a shadow figure, two sides a sun and two sides a moon."
 	//defaults
-	mapi := Item{"Camp Map", "map", "small", "location", 23, md1, 0}
-	flashlight := Item{"Flashlight", "flashlight", "medium", "combat", 22, fd1, 20}
-	smallbackpack := Item{"Small Backpack", "small pack", "large", "player", 19, sb1, 0}
-	largebackpack := Item{"Large Backpack", "large pack", "large", "player", 21, bb1, 0}
+	mapi := Item{"Camp Map", "map", "small", "location", 23, md1, 0, 10}
+	flashlight := Item{"Flashlight", "flashlight", "medium", "combat", 22, fd1, 20, 11}
+	smallbackpack := Item{"Small Backpack", "small pack", "large", "player", 19, sb1, 0, 12}
+	largebackpack := Item{"Large Backpack", "large pack", "large", "player", 21, bb1, 0, 13}
+	devildicebasic := Item{"Devil Dice", "devil dice", "small", "combat", 24, dd1, 0, 14}
 	ItemUpdate(mapi)
 	ItemUpdate(flashlight)
 	ItemUpdate(smallbackpack)
 	ItemUpdate(largebackpack)
+	ItemUpdate(devildicebasic)
 }
 
 //ItemGetByName grabs current item by short name

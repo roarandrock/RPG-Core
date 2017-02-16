@@ -1,6 +1,7 @@
 package conversation
 
 import (
+	"RPG-Core/check"
 	"RPG-Core/inputs"
 	"RPG-Core/models"
 	"fmt"
@@ -132,6 +133,9 @@ var (
 	}
 )
 
+var mike = "Mike" //test, stupid, cheat
+var josh = "Josh"
+
 //Converser is called by mainflow to start conversation
 func Converser(cChar models.Character) {
 	//defaults, starting point
@@ -146,6 +150,22 @@ func Converser(cChar models.Character) {
 	//cheating to try some stuff
 	if cc.Character.Name == "Veronica" {
 		cc = ConverserV(cc)
+	}
+	if cc.Character.Name == mike {
+		if check.Eventcheck(3) == false {
+			sb := models.StoryblobGetByName(3)
+			fmt.Println(sb.Story)
+			sb.Shown = true
+			models.StoryblobUpdate(sb)
+		}
+	} //break out his own dialog later?
+	if cc.Character.Name == josh {
+		if check.Eventcheck(4) == false {
+			sb := models.StoryblobGetByName(4)
+			fmt.Println(sb.Story)
+			sb.Shown = true
+			models.StoryblobUpdate(sb)
+		}
 	}
 	for cc.stilltalking == true {
 		switch cc.qa { //modify to show all options available

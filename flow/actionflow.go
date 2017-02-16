@@ -2,7 +2,6 @@ package flow
 
 import (
 	"RPG-Core/check"
-	"RPG-Core/combat"
 	"RPG-Core/conversation"
 	"RPG-Core/inputs"
 	"RPG-Core/models"
@@ -70,7 +69,7 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 		mc := monstercheck(cp)
 		if mc == true {
 			fmt.Println("Monsters are here!")
-			cp = combat.Fightflow(cp)
+			cp = monsterFlow(cp)
 		}
 
 	case "Talk":
@@ -95,6 +94,21 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 	case "Run":
 		//Go somewhere else fast!
 		fmt.Println("Nowhere to run")
+	case "Sleep":
+		fmt.Println("You crawl into your tent and get ready for sleep." +
+			"\nSet an alarm?")
+		r1 := inputs.StringarrayInput([]string{"Yes", "No"})
+		switch r1 {
+		case 1:
+			fmt.Println("How many hours would you like to sleep for?")
+			dt := inputs.Numberinput(23)
+			models.UpdateTime(dt * 100)
+			cp.Health = 100
+		case 2:
+			fmt.Println("You pass out and sleep a solid six.")
+			models.UpdateTime(6 * 100)
+			cp.Health = 100
+		}
 	case "Swim":
 		vm := models.StoryblobGetByName(5)
 		if vm.Shown == false {
@@ -142,14 +156,4 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 		fmt.Println("Odd. This action does nothing.")
 	}
 	return cp, err
-}
-
-//simple monster check for now
-func monstercheck(cp models.Player) bool {
-	monsters := false
-	_, i := models.MonsterGetByLoc(cp.Loc)
-	if i > 0 {
-		monsters = true
-	}
-	return monsters
 }
