@@ -258,7 +258,14 @@ func opensave() (models.Player, error) {
 		}
 	}
 	//update items
-
+	for _, v := range oldF.iOnP {
+		citem := models.ItemGetByNumber(v)
+		citem.Loc = 20
+		models.ItemUpdate(citem)
+	}
+	cbackpack := models.ItemGetByNumber(oldF.iBackpack)
+	cbackpack.Loc = 19
+	models.ItemUpdate(cbackpack)
 	return np, err
 }
 

@@ -160,12 +160,7 @@ func Converser(cChar models.Character) {
 		}
 	} //break out his own dialog later?
 	if cc.Character.Name == josh {
-		if check.Eventcheck(4) == false {
-			sb := models.StoryblobGetByName(4)
-			fmt.Println(sb.Story)
-			sb.Shown = true
-			models.StoryblobUpdate(sb)
-		}
+		cc = ConverserJ(cc)
 	}
 	for cc.stilltalking == true {
 		switch cc.qa { //modify to show all options available

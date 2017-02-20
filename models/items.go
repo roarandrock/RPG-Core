@@ -73,6 +73,18 @@ func ItemGetByLoc(l int) ([]Item, int) {
 	return cslice, i
 }
 
+//ItemGetByNumber grabs item by its ident number
+func ItemGetByNumber(i int) Item {
+	cm := imap()
+	var ri Item
+	for _, v := range cm {
+		if v.Ident == i {
+			ri = v
+		}
+	}
+	return ri
+}
+
 func imap() map[string]Item {
 	return itemmap
 }
