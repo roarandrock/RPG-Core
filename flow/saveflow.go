@@ -31,6 +31,10 @@ type saveData struct {
 }
 
 //separate variable for number of events
+//needs to be six now
+var (
+	enummer = 6
+)
 
 //for starting a new save file
 func saveStart(np models.Player) error {
@@ -52,8 +56,9 @@ func saveStart(np models.Player) error {
 	newF.time1 = ct % 10
 	newF.day = models.CalendarCheck()
 	//events, needs to be updated to reflect the number of events. Can automate?
-	newF.blobbool = []bool{false, false, false, false, false}
-	for i := 0; i < 5; i++ {
+	newF.blobbool = make([]bool, enummer)
+	// []bool{false, false, false, false, false,false}
+	for i := 0; i < enummer; i++ {
 		newF.blobbool[i] = check.Eventcheck(i + 1)
 	}
 	//items
@@ -89,8 +94,9 @@ func saveFlow() {
 	newF.time1 = ct % 10
 	newF.day = models.CalendarCheck()
 	//events, needs to be updated to reflect the number of events. Can automate?
-	newF.blobbool = []bool{false, false, false, false, false}
-	for i := 0; i < 5; i++ {
+	//newF.blobbool = []bool{false, false, false, false, false}
+	newF.blobbool = make([]bool, enummer)
+	for i := 0; i < enummer; i++ {
 		newF.blobbool[i] = check.Eventcheck(i + 1)
 	}
 	//items`
@@ -136,7 +142,7 @@ func saveSave(newF saveData) error {
 	savef.WriteString(t4)
 	savef.WriteString(d1)
 	//events
-	for i := 0; i < 5; i++ { //0 for false, 1 for true
+	for i := 0; i < enummer; i++ { //0 for false, 1 for true
 		b1 := 0
 		if newF.blobbool[i] == true {
 			b1 = 1
@@ -205,8 +211,9 @@ func opensave() (models.Player, error) {
 	savef.ReadAt(b1, n64) //only works for single digit days
 	oldF.day, _ = strconv.Atoi(string(b1))
 	//events
-	oldF.blobbool = []bool{false, false, false, false, false} //test for character intros
-	for i := 0; i < 5; i++ {
+	oldF.blobbool = make([]bool, enummer)
+	//oldF.blobbool = []bool{false, false, false, false, false} //test for character intros
+	for i := 0; i < enummer; i++ {
 		n64 = int64(n + 8 + i)
 		savef.ReadAt(b1, n64)
 		bb, _ := strconv.Atoi(string(b1))
@@ -216,19 +223,19 @@ func opensave() (models.Player, error) {
 	}
 	//items
 	b2 := make([]byte, 2)
-	n64 = int64(n + 13)
+	n64 = int64(n + enummer + 1)
 	savef.ReadAt(b1, n64)
 	ni, _ := strconv.Atoi(string(b1))
 	if ni != 0 {
 		oldF.iOnP = make([]int, ni)
 		for i := 0; i < ni; i++ {
-			n64 = int64(n + 14 + ni)
+			n64 = int64(n + enummer + 2 + ni)
 			savef.ReadAt(b2, n64)
 			oldF.iOnP[i], _ = strconv.Atoi(string(b2))
 		}
 	}
 	//backpack
-	n64 = int64(n + 14 + ni*2)
+	n64 = int64(n + enummer + 2 + ni*2)
 	savef.ReadAt(b2, n64)
 	oldF.iBackpack, _ = strconv.Atoi(string(b2))
 	//save
@@ -280,10 +287,8 @@ n+5
 n+6 = time4
 n+7 = day
 n+8 = first event bool
-n+9
-n+10
-n+11
-n+12 = fifth event bool
-n+13 = item length, two digits?
-n+14 = first item
+n+enummer = final event bool
+n+enummer+1 = item length, one digit now. two digits later?
+n+enummer+2 = first item, two digits
+n+enummer+2+ni*2 = backpack, two digits
 */

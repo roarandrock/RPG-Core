@@ -31,6 +31,9 @@ var (
 		"\nShe's bare foot and wearing a green dress. She has long black hair." +
 		"\nShe looks older, probably in high school." +
 		"\nShe's smiling."
+	susm = "Susie is sitting on a rock. Her feet dangling in the air, far above the forest." +
+		"\nShe is sun tanned. Another Crew member you have seen around but do not know well." +
+		"\nFearless and fit, you've never seen her turn down a challenge or activity."
 )
 
 //Storyblobset sets initial Storyblobmap
@@ -42,12 +45,15 @@ func Storyblobset() {
 	mikemeet := Storyblob{mm, 3, false}
 	joshmeet := Storyblob{jm, 4, false}
 	veronicameet := Storyblob{vm, 5, false}
+	susiemeet := Storyblob{susm, 6, false}
+	//need new story blob for Susie
 
 	StoryblobUpdate(intro)
 	StoryblobUpdate(shadowmeet)
 	StoryblobUpdate(mikemeet)
 	StoryblobUpdate(joshmeet)
 	StoryblobUpdate(veronicameet)
+	StoryblobUpdate(susiemeet)
 }
 
 //StoryblobGetByName grabs current item by number

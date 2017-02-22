@@ -162,6 +162,9 @@ func Converser(cChar models.Character) {
 	if cc.Character.Name == josh {
 		cc = ConverserJ(cc)
 	}
+	if cc.Character.Name == "Susie" {
+		cc = ConverserS(cc)
+	}
 	for cc.stilltalking == true {
 		switch cc.qa { //modify to show all options available
 		case "H":

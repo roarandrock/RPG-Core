@@ -109,6 +109,13 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 			models.UpdateTime(6 * 100)
 			cp.Health = 100
 		}
+	case "Hike":
+		//switch based on current location?
+		fmt.Println("It's going to be long walk to the top.") //modify with hiking sticks
+		cp.Loc = 4
+		dt := 300
+		models.UpdateTime(dt)
+		fmt.Println("You spend three hours ascending the switchbacks. You rise above the trees. Out of their cover and onto exposed rock under open sky.")
 	case "Swim":
 		vm := models.StoryblobGetByName(5)
 		if vm.Shown == false {

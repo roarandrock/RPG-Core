@@ -103,7 +103,7 @@ var (
 	jAs = []string{"Yep. It's great.", "That's direct. What is your deal?", "Sure. Pussy.", "Whatever."}
 	jA1 = cD{jAs[0], []*pD{&pjQ10, &pjQ11, &pjQ12}, 0}
 	jA2 = cD{jAs[1], []*pD{&pjQ20, &pjQ21, &pjQ22}, 0}
-	jA3 = cD{jAs[2], []*pD{&pjQ30}, 0}
+	jA3 = cD{jAs[2], []*pD{&pjQ30, &pjQ31, &pjQ32, &pjQ17}, 0}
 	jA4 = cD{jAs[3], []*pD{&pExit}, 0}
 
 	//It's great
@@ -214,7 +214,30 @@ var (
 	jAF2   = cD{"Classic loner diss.", []*pD{&pBye1, &pBye2, &pBye3}, 0}
 
 	//Help me
-	pjQ30 = pD{}
+	pjQ30s = []string{"I lost my flashlight. Can I borrow one from you?", "I don't know where anything is.", "I cannot carry all my cool stuff."}
+	pjQ30  = pD{pjQ30s[0], &jA22, 0}
+	pjQ31  = pD{pjQ30s[1], &jA30, 0}
+	pjQ32  = pD{pjQ30s[2], &jA31, 0}
+
+	jA30s = []string{"It's a big place. I'd advise finding a map.", "That sounds just awful."}
+	jA30  = cD{jA30s[0], []*pD{&pjQ33, &pjQ35}, 3}
+	jA31  = cD{jA30s[1], []*pD{&pjQ33, &pjQ35}, 3}
+
+	pjQ33s = []string{"Right. And where would I find that?", "It's the worst.", "Thanks for nothing. You nerd-lord of nothing giving town."}
+	pjQ33  = pD{pjQ33s[0], &jA33, 0}
+	pjQ34  = pD{pjQ33s[1], &jA34, 0}
+	pjQ35  = pD{pjQ33s[2], &jA35, -1}
+
+	jA33s = []string{"You need a map to the map? I think Susie took one. She left on a hike. Wanted to see the view.",
+		"Right. Well I think Mike has a larger backpack.", "Great. I banish you. Go away."}
+	jA33 = cD{jA33s[0], []*pD{&pjQ36, &pjQ35}, 3}
+	jA34 = cD{jA33s[1], []*pD{&pjQ36, &pjQ35}, 3}
+	jA35 = cD{jA33s[2], []*pD{&pBye1, &pBye2, &pBye3}, 0}
+
+	pjQ36s = []string{"Thanks."}
+	pjQ36  = pD{pjQ36s[0], &jA36, 0}
+
+	jA36 = cD{"Glad to help.", []*pD{&pDefault}, 3}
 )
 
 //ConverserJ is for conversations with Josh

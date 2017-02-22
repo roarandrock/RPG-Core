@@ -326,7 +326,7 @@ var (
 
 //ConverserV handles conversation with Veronica
 func ConverserV(cc Convo) Convo {
-	vm := check.Eventcheck(4) //works but too basic
+	vm := check.Eventcheck(5) //works but too basic
 	var options []string
 	var ptan dialog
 	var ctan dialog

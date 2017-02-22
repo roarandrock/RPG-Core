@@ -33,10 +33,12 @@ func Characterset() {
 	mike := Character{"Mike", 1, true, "Real", 3}
 	josh := Character{"Josh", 1, true, "Real", 3}
 	veronica := Character{"Veronica", 40, true, "Imaginary", 3}
+	susie := Character{"Susie", 4, true, "Real", 3}
 
 	CharacterUpdate(mike)
 	CharacterUpdate(josh)
 	CharacterUpdate(veronica)
+	CharacterUpdate(susie)
 }
 
 //CharacterGetByName grabs current item by number

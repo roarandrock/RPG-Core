@@ -49,10 +49,10 @@ Allow people to walk anywhere? Just time dependent? that could be good
 var (
 	campground   = Location{"Campground", 1, []string{"Look", "Walk", "Talk", "Sleep"}}
 	lake         = Location{"Lake", 2, []string{"Look", "Walk", "Talk", "Swim"}}
-	mountainbase = Location{"Mountain Base", 3, []string{"Look", "Walk", "Climb"}}
-	mountaintop  = Location{"Mountain Top", 4, []string{"Look", "Walk", "Pee"}}
+	mountainbase = Location{"Mountain Base", 3, []string{"Look", "Walk", "Hike"}}
+	mountaintop  = Location{"Mountain Top", 4, []string{"Look", "Walk", "Talk"}}
 	mesabase     = Location{"Mesa Base", 5, []string{"Look", "Walk", "Climb"}}
-	mesatop      = Location{"Mesa Top", 6, []string{"Look", "Walk", "Climb"}}
+	mesatop      = Location{"Mesa Top", 6, []string{"Look", "Walk", "Finish"}}
 	cabin        = Location{"Abandoned Cabin", 7, []string{"Look", "Walk", "Investigate"}}
 	forest       = Location{"Forest", 8, []string{"Look", "Walk", "Forage"}}
 )
