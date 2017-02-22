@@ -92,19 +92,27 @@ var (
 	campgroundadj = []int{1, 2, 8}
 	lakeadj       = []int{1, 2, 8}
 	mountainbasej = []int{3, 8}
+	mountaintopj  = []int{3, 4}
 	//mountain top and mesa out
 	cabinadj  = []int{7, 8}
-	forestadj = []int{1, 2, 3, 7, 8}
+	forestadj = []int{1, 2, 3, 8}
 )
 
 //TravelGet gets the possible travel options
+//can open up things here based on events
 func TravelGet(l int) []int {
 	werld := make([][]int, 9)
 	werld[1] = campgroundadj
 	werld[2] = lakeadj
 	werld[3] = mountainbasej
+	werld[4] = mountaintopj
 	werld[7] = cabinadj
 	werld[8] = forestadj
+	if l == 8 {
+		if StoryblobGetByName(7).Shown == true {
+			werld[8] = append(werld[8], 7)
+		}
+	}
 	i := werld[l]
 	return i
 }

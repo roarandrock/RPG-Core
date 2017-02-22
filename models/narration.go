@@ -34,6 +34,7 @@ var (
 	susm = "Susie is sitting on a rock. Her feet dangling in the air, far above the forest." +
 		"\nShe is sun tanned. Another Crew member you have seen around but do not know well." +
 		"\nFearless and fit, you've never seen her turn down a challenge or activity."
+	cabinp = "\"It's here. You can get there through the forest.\""
 )
 
 //Storyblobset sets initial Storyblobmap
@@ -46,7 +47,7 @@ func Storyblobset() {
 	joshmeet := Storyblob{jm, 4, false}
 	veronicameet := Storyblob{vm, 5, false}
 	susiemeet := Storyblob{susm, 6, false}
-	//need new story blob for Susie
+	cabinpath := Storyblob{cabinp, 7, false}
 
 	StoryblobUpdate(intro)
 	StoryblobUpdate(shadowmeet)
@@ -54,6 +55,7 @@ func Storyblobset() {
 	StoryblobUpdate(joshmeet)
 	StoryblobUpdate(veronicameet)
 	StoryblobUpdate(susiemeet)
+	StoryblobUpdate(cabinpath)
 }
 
 //StoryblobGetByName grabs current item by number

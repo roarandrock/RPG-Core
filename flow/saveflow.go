@@ -31,9 +31,8 @@ type saveData struct {
 }
 
 //separate variable for number of events
-//needs to be six now
 var (
-	enummer = 6
+	enummer = 7
 )
 
 //for starting a new save file
@@ -223,19 +222,19 @@ func opensave() (models.Player, error) {
 	}
 	//items
 	b2 := make([]byte, 2)
-	n64 = int64(n + enummer + 1)
+	n64 = int64(n + 8 + enummer)
 	savef.ReadAt(b1, n64)
 	ni, _ := strconv.Atoi(string(b1))
 	if ni != 0 {
 		oldF.iOnP = make([]int, ni)
 		for i := 0; i < ni; i++ {
-			n64 = int64(n + enummer + 2 + ni)
+			n64 = int64(n + 8 + enummer + 1 + ni)
 			savef.ReadAt(b2, n64)
 			oldF.iOnP[i], _ = strconv.Atoi(string(b2))
 		}
 	}
 	//backpack
-	n64 = int64(n + enummer + 2 + ni*2)
+	n64 = int64(n + 8 + enummer + 1 + ni*2)
 	savef.ReadAt(b2, n64)
 	oldF.iBackpack, _ = strconv.Atoi(string(b2))
 	//save
@@ -288,7 +287,7 @@ n+6 = time4
 n+7 = day
 n+8 = first event bool
 n+enummer = final event bool
-n+enummer+1 = item length, one digit now. two digits later?
-n+enummer+2 = first item, two digits
-n+enummer+2+ni*2 = backpack, two digits
+n+8+enummer+1 = item length, one digit now. two digits later?
+n+8+enummer+2 = first item, two digits
+n+8+enummer+2+ni*2 = backpack, two digits
 */

@@ -98,8 +98,8 @@ var (
 	//exploring
 	pisQ30s = []string{"It is a giant place. I keep getting lost.", "Full of sun and shadows.", "Have you seen anything cool?"}
 	pisQ30  = pD{pisQ30s[0], &siA30, 0}
-	pisQ31  = pD{pisQ30s[1], &siA32, 0}
-	pisQ32  = pD{pisQ30s[2], &siA33, 1}
+	pisQ31  = pD{pisQ30s[1], &siA31, 0}
+	pisQ32  = pD{pisQ30s[2], &siA32, 1}
 
 	siA30s = []string{"That's how you really learn to navigate. If you always know where you are, you never have to try.",
 		"I guess. It's certainly sunny up here. In the forest, it always feels a bit darker.",
@@ -191,7 +191,7 @@ var (
 	pisQ62  = pD{pisQ62s[0], &siA62, 0}
 
 	siA62s = []string{"Through the forest. Let me show you on my map."} //make an event for this
-	siA62  = cD{siA62s[0], []*pD{&pDefault}, 4}
+	siA62  = cD{siA62s[0], []*pD{&pCabin}, 4}
 	//can talk about the mesa here or later?
 
 	//reusing the intro questions in the repeat. So they can be long.
@@ -220,8 +220,8 @@ var (
 	piqTest  = pD{}
 	pDefault = pD{}
 	*/
-	pMap = pD{}
-
+	pMap   = pD{}
+	pCabin = pD{}
 	//Depth fail
 	sDfail = cD{"Um, no. Sorry, I got to go.", []*pD{&pExit}, 0}
 )
@@ -281,6 +281,17 @@ func dialogSusieEvents(ncD cD, cc Convo) (cD, Convo) {
 		cc.stilltalking = false
 	case &pDefault:
 		ncD = sH0
+	case &pCabin:
+		ncD = sH0
+		if check.Eventcheck(7) == false {
+			cblob := models.StoryblobGetByName(7)
+			fmt.Println(cblob.Story)
+			cblob.Shown = true
+			models.StoryblobUpdate(cblob)
+		} else {
+			fmt.Println("\"Don't you remember? From camp go to the forest and find it from there.\"")
+		}
+		//implement map still
 	}
 	return ncD, cc
 }
