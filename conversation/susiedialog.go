@@ -52,11 +52,16 @@ var (
 	pisQ11 = pD{pisQ10s[1], &siA11, 0}
 	pisQ12 = pD{pisQ10s[2], &siA12, 0}
 
-	siA10s = []string{"You know, I got this route memorized. Take it.", "What? You mean the bears and mosquitos?",
+	siA10s = []string{"Honestly I don't have one anymore. I got this route memorized. But maybe there are some in the old cabin.",
+		"What? You mean the bears and mosquitos?",
 		"I'm not the only girl in the crew."}
-	siA10 = cD{siA10s[0], []*pD{&pMap}, 5}
+	siA10 = cD{siA10s[0], []*pD{&pisQ110}, 5}
 	siA11 = cD{siA10s[1], []*pD{&pisQ16, &pisQ13}, 0}
 	siA12 = cD{siA10s[2], []*pD{&pisQ17, &pisQ18}, 0} //need a follow up
+
+	//redirect to cabin
+	pisQ110s = []string{"What cabin?"}
+	pisQ110  = pD{pisQ110s[0], &siA51, 0}
 
 	//monsters
 	pisQ12s = []string{"No. I mean the shadows. Like the little guys with the teeth and the dice.", "Wait, there are bears here?"}
@@ -220,7 +225,7 @@ var (
 	piqTest  = pD{}
 	pDefault = pD{}
 	*/
-	pMap   = pD{}
+	//pMap   = pD{}
 	pCabin = pD{}
 	//Depth fail
 	sDfail = cD{"Um, no. Sorry, I got to go.", []*pD{&pExit}, 0}

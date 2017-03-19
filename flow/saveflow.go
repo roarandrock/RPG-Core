@@ -54,7 +54,8 @@ func saveStart(np models.Player) error {
 	ct = ct / 10
 	newF.time1 = ct % 10
 	newF.day = models.CalendarCheck()
-	//events, needs to be updated to reflect the number of events. Can automate?
+	//events
+	enummer = models.StorySizeGet()
 	newF.blobbool = make([]bool, enummer)
 	// []bool{false, false, false, false, false,false}
 	for i := 0; i < enummer; i++ {
@@ -92,8 +93,8 @@ func saveFlow() {
 	ct = ct / 10
 	newF.time1 = ct % 10
 	newF.day = models.CalendarCheck()
-	//events, needs to be updated to reflect the number of events. Can automate?
-	//newF.blobbool = []bool{false, false, false, false, false}
+	//events
+	enummer = models.StorySizeGet()
 	newF.blobbool = make([]bool, enummer)
 	for i := 0; i < enummer; i++ {
 		newF.blobbool[i] = check.Eventcheck(i + 1)
@@ -141,6 +142,7 @@ func saveSave(newF saveData) error {
 	savef.WriteString(t4)
 	savef.WriteString(d1)
 	//events
+	enummer = models.StorySizeGet()
 	for i := 0; i < enummer; i++ { //0 for false, 1 for true
 		b1 := 0
 		if newF.blobbool[i] == true {
@@ -210,6 +212,7 @@ func opensave() (models.Player, error) {
 	savef.ReadAt(b1, n64) //only works for single digit days
 	oldF.day, _ = strconv.Atoi(string(b1))
 	//events
+	enummer = models.StorySizeGet()
 	oldF.blobbool = make([]bool, enummer)
 	//oldF.blobbool = []bool{false, false, false, false, false} //test for character intros
 	for i := 0; i < enummer; i++ {
@@ -228,8 +231,9 @@ func opensave() (models.Player, error) {
 	if ni != 0 {
 		oldF.iOnP = make([]int, ni)
 		for i := 0; i < ni; i++ {
-			n64 = int64(n + 8 + enummer + 1 + ni)
+			n64 = int64(n + 8 + enummer + 1 + i*2)
 			savef.ReadAt(b2, n64)
+			fmt.Println("Test ni, n64, b2", ni, n64, b2)
 			oldF.iOnP[i], _ = strconv.Atoi(string(b2))
 		}
 	}
@@ -286,8 +290,8 @@ n+5
 n+6 = time4
 n+7 = day
 n+8 = first event bool
-n+enummer = final event bool
-n+8+enummer+1 = item length, one digit now. two digits later?
-n+8+enummer+2 = first item, two digits
-n+8+enummer+2+ni*2 = backpack, two digits
+n+8+enummer-1 = final event bool
+n+8+enummer = item length, one digit now. two digits later? ni
+n+8+enummer+1 = first item, two digits
+n+8+enummer+1+ni*2 = backpack, two digits
 */

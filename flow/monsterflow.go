@@ -20,6 +20,7 @@ func monstercheck(cp models.Player) bool {
 	return monsters
 }
 
+//move more of this to combat?
 func monsterFlow(cp models.Player) models.Player {
 	mlist, i := models.MonsterGetByLoc(cp.Loc)
 	if i > 1 {
@@ -45,20 +46,11 @@ func monsterFlow(cp models.Player) models.Player {
 		switch r1 {
 		case 1:
 			cm, cp = monsterTalk(cm, cp)
-		case 2:
-			fmt.Println("How would you like to fight?")
-			options = []string{"Fists", "Teeth"}
-			ilist, _ := models.ItemGetByLoc(20)
-			for _, v := range ilist {
-				if v.Iclass == "combat" {
-					options = append(options, v.FullName)
-				}
-			}
-			r2 := inputs.StringarrayInput(options)
-			fchoice := options[r2-1]
+		case 2: //sepearte into own function
+			fchoice := combat.FightingOptions()
 			switch fchoice {
 			case "Devil Dice":
-				cp = combat.Fightflow(cp, cm)
+				cp = combat.DDFlow(cp, cm)
 				cm.Engaged = false
 			case "Fists":
 				fmt.Println("You try to pummel the beast.")
@@ -86,9 +78,9 @@ func monsterFlow(cp models.Player) models.Player {
 		case 3:
 			_, day := models.GetTime()
 			if day == "Day" {
-				fmt.Println("In the sun, you run back to camp succesfully.")
+				fmt.Println("In the sun, you run and succesfully escape the beast.")
 				cp.Loc = 1
-				dt := models.TravelTime(cp.Loc, 1)
+				dt, _ := models.TravelTime(cp.Loc, 1)
 				models.UpdateTime(dt)
 				cm.Engaged = false
 			} else {
@@ -99,6 +91,7 @@ func monsterFlow(cp models.Player) models.Player {
 	return cp
 }
 
+//move to combat?
 func monsterTalk(cm models.Monster, cp models.Player) (models.Monster, models.Player) {
 	switch cm.ShortName {
 	case smiler:
@@ -120,4 +113,16 @@ func monsterTalk(cm models.Monster, cp models.Player) (models.Monster, models.Pl
 		fmt.Println("The shadow has an odd smile.")
 	}
 	return cm, cp
+}
+
+func locEventCheck(cp models.Player, dest int) models.Player {
+	//first boss - need to be coming down the mountain after finding out where the cabin is
+	if cp.Loc == 4 && dest == 3 {
+		if check.Eventcheck(8) == false && check.Eventcheck(7) == true {
+			b1 := models.StoryblobGetByName(8)
+			fmt.Println(b1.Story)
+			cp = combat.Boss1Flow(cp)
+		}
+	}
+	return cp
 }

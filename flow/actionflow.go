@@ -27,7 +27,7 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 	case "Look":
 		//describe place, people, and items here
 		loc := models.LocationGet(cp.Loc)
-		fmt.Println("You are in the", loc.Name)
+		fmt.Println("You are at the", loc.Name)
 		scene := models.SceneryGet(cp.Loc)
 		fmt.Println(scene)
 		//people list
@@ -61,17 +61,19 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 		if dest == cp.Loc {
 			fmt.Println("You stay still")
 		} else {
-			dt := models.TravelTime(cp.Loc, dest)
+			cp = locEventCheck(cp, dest)
+			dt, dtext := models.TravelTime(cp.Loc, dest)
 			cp.Loc = dest
 			models.UpdateTime(dt)
-			fmt.Println("You travel. It takes roughly one hour.")
+			if cp.Health > 0 { //cheating, for if player dies on the way
+				fmt.Println(dtext)
+			}
 		}
 		mc := monstercheck(cp)
 		if mc == true {
 			fmt.Println("Monsters are here!")
 			cp = monsterFlow(cp)
 		}
-
 	case "Talk":
 		//people list
 		cl, n := models.CharacterGetByLoc(cp.Loc)
@@ -111,6 +113,7 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 		}
 	case "Hike":
 		//switch based on current location?
+		//change to something else?
 		fmt.Println("It's going to be long walk to the top.") //modify with hiking sticks
 		cp.Loc = 4
 		dt := 300

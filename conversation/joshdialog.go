@@ -172,7 +172,7 @@ var (
 	jA19  = cD{jA18s[1], []*pD{&pjQ122, &pjQ123}, 0}
 	jA17  = cD{jA18s[2], []*pD{&pDefault}, 0}
 
-	pjQ120s = []string{"Just hang out.", "Well my best friend, he couldn't join on this trip."}
+	pjQ120s = []string{"Just hang out.", "Typically my best friend, he'd be here. Camping. But he couldn't join on this trip."}
 	pjQ120  = pD{pjQ120s[0], &jA120, -1}
 	pjQ121  = pD{pjQ120s[1], &jA114, 1}
 	jA120s  = []string{"Very descriptive."}

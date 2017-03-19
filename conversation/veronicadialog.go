@@ -375,7 +375,7 @@ func dialogchecker(ctan dialog, cc Convo) (dialog, Convo) {
 	var v1 string
 	switch {
 	case *ctan.branch1 == pGBt0: //if there is no branch in the dialog, then it defaults to this one
-		fmt.Println("Test pGBt0 event triggered")
+		//fmt.Println("Test pGBt0 event triggered")
 		cc.stilltalking = false
 		v1 = "\"" + ctan.words + "\"" //displays Vs response
 		fmt.Println(v1)
@@ -385,7 +385,7 @@ func dialogchecker(ctan dialog, cc Convo) (dialog, Convo) {
 		v1 = "\"" + ctan.words + "\""
 		fmt.Println(v1)
 	case *ctan.branch1 == ph1Exit: //for normal ending the conversation
-		fmt.Println("Test exit event triggered")
+		//fmt.Println("Test exit event triggered")
 		v1 = "\"" + ctan.words + "\"" //displays Vs response
 		fmt.Println(v1)
 		cc.stilltalking = false
@@ -395,25 +395,25 @@ func dialogchecker(ctan dialog, cc Convo) (dialog, Convo) {
 		fmt.Println("She faces into the forest. You dash to the shore and rapidly put on your clothes.")
 		ctan = vh124 //need a new ctan
 	case *ctan.branch1 == ph3smiler: //trying to get smiler event checked
-		fmt.Println("Test smiler event triggered")
+		//fmt.Println("Test smiler event triggered")
 		//for when player sees smiler
 		sc := check.Eventcheck(2)
 		if sc == true {
-			fmt.Println("Test smiler event triggered 1")
+			//fmt.Println("Test smiler event triggered 1")
 			ctan = vct33
 		} else {
-			fmt.Println("Test smiler event triggered 2")
+			//fmt.Println("Test smiler event triggered 2")
 			ctan = vct35
 		}
 	case *ctan.branch1 == ph4smiler: //trying to get smiler event checked
-		fmt.Println("Test smiler event triggered")
+		//fmt.Println("Test smiler event triggered")
 		//for when player sees smiler
 		sc := check.Eventcheck(2)
 		if sc == true {
-			fmt.Println("Test smiler event triggered 1")
+			//fmt.Println("Test smiler event triggered 1")
 			ctan = vct37
 		} else {
-			fmt.Println("Test smiler event triggered 2")
+			//fmt.Println("Test smiler event triggered 2")
 			ctan = vct36
 		}
 	case *ctan.branch1 == ph6event: //return to defaults

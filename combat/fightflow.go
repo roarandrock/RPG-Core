@@ -12,8 +12,23 @@ Timer could be used for blocking:
 https://tour.golang.org/concurrency/6
 */
 
-//Fightflow come here to fight
-func Fightflow(cp models.Player, cm models.Monster) models.Player {
+//FightingOptions returns the choice for fighting
+func FightingOptions() string {
+	fmt.Println("How would you like to fight?")
+	options := []string{"Fists", "Teeth"}
+	ilist, _ := models.ItemGetByLoc(20)
+	for _, v := range ilist {
+		if v.Iclass == "combat" {
+			options = append(options, v.FullName)
+		}
+	}
+	r2 := inputs.StringarrayInput(options)
+	fchoice := options[r2-1]
+	return fchoice
+}
+
+//DDFlow come here to fight
+func DDFlow(cp models.Player, cm models.Monster) models.Player {
 
 	//fight selector
 	//Hearts, dice
@@ -39,9 +54,12 @@ func devildice(cp models.Player, cm models.Monster) models.Player {
 	if solar == "Day" {
 		pturn = true
 	}
+	opt2 := []string{"Yes"}
 	for fcont == true {
 		switch pturn {
 		case false:
+			fmt.Println("Your turn is over. Now it's your opponent's turn. Ready?")
+			inputs.StringarrayInput(opt2)
 			fmt.Println("The", cm.ShortName, "rolls.")
 			roll := ddmonturn()
 			mdmg, pdmg, _ := dout(roll) //monsters don't get rerolls
@@ -50,6 +68,8 @@ func devildice(cp models.Player, cm models.Monster) models.Player {
 			fmt.Println("Test: Monster health and player health", cm.Health, cp.Health)
 			pturn = true
 		case true:
+			fmt.Println("Now it's your turn. Ready?")
+			inputs.StringarrayInput(opt2)
 			fmt.Println(cp.Name, "rolls.")
 			roll := ddturn()
 			mdmg, pdmg, reroll := dout(roll)
@@ -63,6 +83,7 @@ func devildice(cp models.Player, cm models.Monster) models.Player {
 				cm.Health = cm.Health - mdmg
 				fmt.Println("Test:", cm.Health, cp.Health)
 			}
+
 			pturn = false
 		}
 		if cp.Health <= 0 {
@@ -105,7 +126,7 @@ func dout(roll []ddie) (int, int, bool) {
 	}
 	if moon >= 3 {
 		reroll = true
-		fmt.Println("Three moons, that's a reroll.")
+		fmt.Println("Three moons, that's a reroll.(Humans only)")
 	}
 	return mdmg, pdmg, reroll
 }

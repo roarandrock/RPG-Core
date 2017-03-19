@@ -1,6 +1,7 @@
 package flow
 
 import (
+	"RPG-Core/check"
 	"RPG-Core/inputs"
 	"RPG-Core/models"
 	"fmt"
@@ -15,7 +16,7 @@ func Mainflow(cp models.Player) (models.Player, error) {
 	_, err := strconv.Atoi("-42")
 	for cont == true {
 		cp, err = gameloop(cp)
-		cont = cp.Cont
+		cont = check.PContCheck(cp) //checks health and player continue
 	}
 	return cp, err
 }
@@ -89,5 +90,11 @@ func gameloop(cp models.Player) (models.Player, error) {
 func Finale(cp models.Player) (models.Player, error) {
 	//cheating to make an error with error
 	_, err := strconv.Atoi("-42")
+	if cp.Health <= 0 {
+		fmt.Println("No more fight is left. You have been defeated.")
+	}
+	if cp.Cont == false {
+		fmt.Println("You are no longer able to continue. Oddly you have come to an end.")
+	}
 	return cp, err
 }

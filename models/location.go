@@ -91,7 +91,7 @@ var (
 var (
 	campgroundadj = []int{1, 2, 8}
 	lakeadj       = []int{1, 2, 8}
-	mountainbasej = []int{3, 8}
+	mountainbasej = []int{3, 4, 8}
 	mountaintopj  = []int{3, 4}
 	//mountain top and mesa out
 	cabinadj  = []int{7, 8}
@@ -130,7 +130,22 @@ func LocationGet(l int) Location {
 }
 
 //TravelTime tells you how long it takes to get somewhere
-func TravelTime(cp int, w int) int {
+func TravelTime(cp int, w int) (int, string) {
 	dt := 100 //currently just 1 hour to get somewhere, can change later
-	return dt
+	var dtext string
+	if cp == 3 {
+		if w == 4 {
+			dt = 300
+			dtext = "It's a long hike to the top." //can change these to output instead of printing them here
+		}
+	} else if cp == 4 {
+		if w == 3 {
+			dt = 200
+			dtext = "You make good time going down the mountain."
+		}
+	} else {
+		dl := LocationGet(w)
+		dtext = "You arrive at the " + dl.Name
+	}
+	return dt, dtext
 }

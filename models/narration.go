@@ -35,6 +35,11 @@ var (
 		"\nShe is sun tanned. Another Crew member you have seen around but do not know well." +
 		"\nFearless and fit, you've never seen her turn down a challenge or activity."
 	cabinp = "\"It's here. You can get there through the forest.\""
+	boss1  = "Half way down the mountain you hear a squabble. A large creature approaches from around the mountainside." +
+		"\nCovered in bright orange and yellow feathers, it's like a bird. Except for the heads." +
+		"\nIt has three heads. Each one is at the end of a long, serpentine neck. And each one is different." +
+		"\nOne is beaked and scaly like a turtle. One has long ears and buck teeth like a rabbit." +
+		"\nAnd one has a snout and short ears like a fox."
 )
 
 //Storyblobset sets initial Storyblobmap
@@ -47,7 +52,10 @@ func Storyblobset() {
 	joshmeet := Storyblob{jm, 4, false}
 	veronicameet := Storyblob{vm, 5, false}
 	susiemeet := Storyblob{susm, 6, false}
+	//events
 	cabinpath := Storyblob{cabinp, 7, false}
+	//boss 1
+	boss1blob := Storyblob{boss1, 8, false}
 
 	StoryblobUpdate(intro)
 	StoryblobUpdate(shadowmeet)
@@ -56,6 +64,8 @@ func Storyblobset() {
 	StoryblobUpdate(veronicameet)
 	StoryblobUpdate(susiemeet)
 	StoryblobUpdate(cabinpath)
+	StoryblobUpdate(boss1blob)
+
 }
 
 //StoryblobGetByName grabs current item by number
@@ -63,6 +73,13 @@ func StoryblobGetByName(c int) Storyblob {
 	cm := sbmap()
 	i := cm[c]
 	return i
+}
+
+//StorySizeGet returns how many events are in the game
+func StorySizeGet() int {
+	sb := sbmap()
+	t1 := len(sb)
+	return t1
 }
 
 func sbmap() map[int]Storyblob {

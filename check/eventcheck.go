@@ -20,3 +20,15 @@ func EventLoad(eventid int) {
 		models.CharacterUpdate(vc)
 	}
 }
+
+//PContCheck checks the players health and returns a true false to continue
+func PContCheck(cp models.Player) bool {
+	cont := true
+	if cp.Health <= 0 {
+		cont = false
+	}
+	if cp.Cont == false {
+		cont = false
+	}
+	return cont
+}
