@@ -58,32 +58,67 @@ func devildice(cp models.Player, cm models.Monster) models.Player {
 	for fcont == true {
 		switch pturn {
 		case false:
-			fmt.Println("Your turn is over. Now it's your opponent's turn. Ready?")
+			fmt.Println("It is your opponent's turn. Ready?")
 			inputs.StringarrayInput(opt2)
 			fmt.Println("The", cm.ShortName, "rolls.")
 			roll := ddmonturn()
 			mdmg, pdmg, _ := dout(roll) //monsters don't get rerolls
-			cp.Health = cp.Health - pdmg
-			cm.Health = cm.Health - mdmg
-			fmt.Println("Test: Monster health and player health", cm.Health, cp.Health)
+			if mdmg > 0 {
+				fmt.Println("Sparks fly. Your foe is hit.")
+				cm.Health = cm.Health - mdmg
+				if cm.Health < 20 && cm.Health > 0 {
+					fmt.Println("The", cm.ShortName, "is weak. Cannot take much more.")
+				}
+			}
+			if pdmg > 0 {
+				fmt.Println("Darkness covers you. You feel weaker.")
+				cp.Health = cp.Health - pdmg
+				if cp.Health < 20 && cp.Health > 0 {
+					fmt.Println("Your body is shaking. Your world is darker. You cannot take much more.")
+				}
+			}
+			fmt.Printf("Monster health: %v\nPlayer Health: %v\n", cm.Health, cp.Health)
 			pturn = true
 		case true:
-			fmt.Println("Now it's your turn. Ready?")
+			fmt.Println("It is your turn. Ready?")
 			inputs.StringarrayInput(opt2)
 			fmt.Println(cp.Name, "rolls.")
 			roll := ddturn()
 			mdmg, pdmg, reroll := dout(roll)
-			cp.Health = cp.Health - pdmg
-			cm.Health = cm.Health - mdmg
-			fmt.Println("Test: Monster health and player health", cm.Health, cp.Health)
-			for reroll == true { //for rerolls
+			if mdmg > 0 {
+				fmt.Println("Sparks fly. Your foe is hit.")
+				cm.Health = cm.Health - mdmg
+				if cm.Health < 20 && cm.Health > 0 {
+					fmt.Println("The", cm.ShortName, "is weak. Cannot take much more.")
+				}
+			}
+			if pdmg > 0 {
+				fmt.Println("Darkness covers you. You feel weaker.")
+				cp.Health = cp.Health - pdmg
+				if cp.Health < 20 && cp.Health > 0 {
+					fmt.Println("Your body is shaking. Your world is darker. You cannot take much more.")
+				}
+			}
+			fmt.Printf("Monster health: %v\nPlayer Health: %v\n", cm.Health, cp.Health)
+			for reroll == true && cm.Health > 0 { //for rerolls
 				roll = ddturn()
 				mdmg, pdmg, reroll = dout(roll)
-				cp.Health = cp.Health - pdmg
-				cm.Health = cm.Health - mdmg
-				fmt.Println("Test:", cm.Health, cp.Health)
+				if mdmg > 0 {
+					fmt.Println("Sparks fly. Your foe is hit.")
+					cm.Health = cm.Health - mdmg
+					if cm.Health < 20 && cm.Health > 0 {
+						fmt.Println("The", cm.ShortName, "is weak. Cannot take much more.")
+					}
+				}
+				if pdmg > 0 {
+					fmt.Println("Darkness covers you. You feel weaker.")
+					cp.Health = cp.Health - pdmg
+					if cp.Health < 20 && cp.Health > 0 {
+						fmt.Println("Your body is shaking. Your world is darker. You cannot take much more.")
+					}
+				}
+				fmt.Printf("Monster health: %v\nPlayer Health: %v\n", cm.Health, cp.Health)
 			}
-
 			pturn = false
 		}
 		if cp.Health <= 0 {
@@ -197,7 +232,7 @@ func ddturn() []ddie {
 	for _, v := range roll {
 		fmt.Println(v.face)
 	}
-	fmt.Println("test:", roll)
+	//fmt.Println("test:", roll)
 	return roll
 }
 

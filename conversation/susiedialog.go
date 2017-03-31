@@ -200,7 +200,7 @@ var (
 	//can talk about the mesa here or later?
 
 	//reusing the intro questions in the repeat. So they can be long.
-	pisQ40 = pD{"Nevermind. Just going to enjoy the view.", &siA40, 1}
+	pisQ40 = pD{"Later. Just going to enjoy the view.", &siA40, 1}
 	siA40  = cD{"Cool. See you around.", []*pD{&pExit}, 0}
 
 	//need Normal/2nd conversation
@@ -228,7 +228,7 @@ var (
 	//pMap   = pD{}
 	pCabin = pD{}
 	//Depth fail
-	sDfail = cD{"Um, no. Sorry, I got to go.", []*pD{&pExit}, 0}
+	sDfail = cD{"Um, no. Sorry, cannot help you there.", []*pD{&pDefault}, 0}
 )
 
 //ConverserS is for conversations with Susie
@@ -271,7 +271,7 @@ func ConverserS(cc Convo) Convo {
 			ncD = sDfail
 		}
 		v1 := "\"" + ncD.words + "\""
-		fmt.Println(v1, cc.depth)
+		fmt.Println(v1)
 		//checks branches for possible events
 		ncD, cc = dialogSusieEvents(ncD, cc)
 	}

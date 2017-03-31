@@ -112,13 +112,13 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 			cp.Health = 100
 		}
 	case "Hike":
-		//switch based on current location?
-		//change to something else?
-		fmt.Println("It's going to be long walk to the top.") //modify with hiking sticks
-		cp.Loc = 4
-		dt := 300
+		dt := 400
 		models.UpdateTime(dt)
-		fmt.Println("You spend three hours ascending the switchbacks. You rise above the trees. Out of their cover and onto exposed rock under open sky.")
+		fmt.Println("You spend three hours ascending and descending the switchbacks. You rise above the trees." +
+			"Over the trees and onto rock under open sky. You can see different parts of camp." +
+			"There is a cabin, abandoned. And past that a large mesa. The ghost stories told around the camp fire were about these places." +
+			"You arrive back on the mountain base. Feeling healthier.")
+		cp.Health = cp.Health + 15
 	case "Swim":
 		vm := models.StoryblobGetByName(5)
 		if vm.Shown == false {
@@ -139,6 +139,18 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 			}
 		} else {
 			fmt.Println("Veronica watches you swim. It's awkward.") //cheating
+		}
+	case "Forage":
+		fmt.Println("You find some random berries. Do you want to eat them?")
+		options := []string{"Yes", "No"}
+		r1 := inputs.StringarrayInput(options)
+		switch r1 {
+		case 1:
+			fmt.Println("Ouch. That burns going in. Probably when it goes out too.")
+			cp.Health = cp.Health - 20
+			cp.Cont = check.PContCheck(cp)
+		case 2:
+			fmt.Println("You return them to the forest.")
 		}
 	case "Menu":
 		//save, inventory, quit

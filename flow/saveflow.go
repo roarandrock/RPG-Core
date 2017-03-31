@@ -165,7 +165,7 @@ func saveSave(newF saveData) error {
 	savef.WriteString(bp)
 	//sync
 	savef.Sync()
-	fmt.Println("test:", newF)
+	//fmt.Println("test:", newF)
 	return err
 }
 
@@ -233,7 +233,7 @@ func opensave() (models.Player, error) {
 		for i := 0; i < ni; i++ {
 			n64 = int64(n + 8 + enummer + 1 + i*2)
 			savef.ReadAt(b2, n64)
-			fmt.Println("Test ni, n64, b2", ni, n64, b2)
+			//fmt.Println("Test ni, n64, b2", ni, n64, b2)
 			oldF.iOnP[i], _ = strconv.Atoi(string(b2))
 		}
 	}
@@ -243,7 +243,7 @@ func opensave() (models.Player, error) {
 	oldF.iBackpack, _ = strconv.Atoi(string(b2))
 	//save
 	savef.Sync()
-	fmt.Println("test:", oldF)
+	//fmt.Println("test:", oldF)
 	//update player model
 	np := models.Player{}
 	np.Name = oldF.name

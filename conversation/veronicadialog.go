@@ -90,7 +90,7 @@ var (
 	vca1 = []string{"I'm feeling like p words. Perky, playful, poignant. What letter are you?",
 		"That's cruelly vague. With what sweetheat?", "Probably not. But I can humor you."}
 	vct1 = dialog{words: vca1[0], branch1: &pqt11, branch2: &pqt12, branch3: &pqt13}
-	vct2 = dialog{words: vca1[1], branch1: &pqt21, branch2: &pqt22}
+	vct2 = dialog{words: vca1[1], branch1: &pqt21, branch2: &pqt22, branch3: &pqt43}
 	//need to check for smiler event, kind of annoying this happens in two places
 	vct3 = dialog{words: vca1[2], branch1: &ph4smiler}
 	//for when player has not seen the smiler

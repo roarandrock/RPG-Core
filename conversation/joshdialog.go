@@ -103,7 +103,7 @@ var (
 	jAs = []string{"Yep. It's great.", "That's direct. What is your deal?", "Sure. Pussy.", "Whatever."}
 	jA1 = cD{jAs[0], []*pD{&pjQ10, &pjQ11, &pjQ12}, 0}
 	jA2 = cD{jAs[1], []*pD{&pjQ20, &pjQ21, &pjQ22}, 0}
-	jA3 = cD{jAs[2], []*pD{&pjQ30, &pjQ31, &pjQ32, &pjQ17}, 0}
+	jA3 = cD{jAs[2], []*pD{&pjQ30, &pjQ31}, 0}
 	jA4 = cD{jAs[3], []*pD{&pExit}, 0}
 
 	//It's great
@@ -165,7 +165,7 @@ var (
 	pjQ18s = []string{"I'd rather be with my friends.", "Too much sun.", "There are monsters in the forest."}
 	pjQ18  = pD{pjQ18s[0], &jA18, 2}
 	pjQ19  = pD{pjQ18s[1], &jA19, 0}
-	pjQ17  = pD{pjQ18s[2], &jA17, 1}
+	//pjQ17  = pD{pjQ18s[2], &jA17, 1}
 
 	jA18s = []string{"Me too. What do you like to do?", "What are you a goth?", "Ha. You are a weird kid."}
 	jA18  = cD{jA18s[0], []*pD{&pjQ120, &pjQ121}, 3}
@@ -279,7 +279,7 @@ func ConverserJ(cc Convo) Convo {
 			ncD = jDfail
 		}
 		v1 := "\"" + ncD.words + "\""
-		fmt.Println(v1, cc.depth)
+		fmt.Println(v1)
 		//checks branches for possible events
 		ncD, cc = dialogJoshEvents(ncD, cc)
 	}

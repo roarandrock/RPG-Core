@@ -43,7 +43,7 @@ func Boss1Flow(cp models.Player) models.Player {
 	cm := models.Monster{
 		FullName:  "Representative Zero Bird",
 		ShortName: "zero bird",
-		Health:    50, //for testing, should be like 70
+		Health:    75,
 		Loc:       40,
 		Details:   "Flying three headed beast",
 		Engaged:   true}
@@ -67,11 +67,11 @@ func Boss1Flow(cp models.Player) models.Player {
 			case "Devil Dice":
 				fmt.Println("You pull out your set of dice.")
 				if heads[0] == true {
-					fmt.Println("The ears on the rabbit twitch. It's eyes follow your hand full of dice.")
+					fmt.Println("The ears on the rabbit twitch. Its eyes follow your hand full of dice.")
 					if heads[2] == true {
 						fmt.Println("The fox snaps at the rabbit, \"You idiot. We don't have time for that!\"")
 					} else if heads[1] == true {
-						fmt.Println("One of the bird's claws, pulls up into it's feathers. Then the turtle solemnly states, \"I don't think the Professor wants us to play with him.\"" +
+						fmt.Println("One of the bird's claws, pulls up into its feathers. Then the turtle solemnly states, \"I don't think the Professor wants us to play with him.\"" +
 							"\n\"What do you know?\", replies the rabbit. But it stops moving and the claw reappears empty.")
 					} else {
 						fmt.Println("The bird's claw reaches into the feathers and pulls out a set of appropriately large dice." +
@@ -80,14 +80,14 @@ func Boss1Flow(cp models.Player) models.Player {
 						if cp.Health > 0 {
 							fmt.Println("\"No! How could I lose to a human? The Professor is going to kill me!\", yells the Rabbit head." +
 								"\"Time for me to go into hiding. Good luck brat. You may have beat me, but I have kin. Many, many kin.\"")
-							fmt.Println("The bird beast that once had three heads is defeated. It flies off howling in pain and cursing it's stupidity.")
+							fmt.Println("The bird beast that once had three heads is defeated. It flies off howling in pain and cursing its stupidity.")
 						}
 						bfcont = false
 					}
 				}
 			case "Flashlight":
 				fmt.Println("You shine the light on the beast. Some of its orange feathers start curling and blackening." +
-					"\n\"Stop that\", says the rabbit and it not gently smacks you with it's claw.")
+					"\n\"Stop that\", says the rabbit and it not gently smacks you with its claw.")
 				cp.Health = cp.Health - 5
 			default:
 				fmt.Println("Oddly, no effect on the beast")
@@ -182,7 +182,7 @@ func dialogB1Events(nbD bD, cpH int, heads []bool) (bD, bool, int, []bool) {
 	case &pKillT:
 		bconv = false
 		fmt.Println("The Rabbit head attacks the Turtle head. It's a manic attack, biting all along the Turtle's scaly head and long neck." +
-			"\nThe Turtle eventually retaliates. It's beak bloodying the Rabbit.")
+			"\nThe Turtle eventually retaliates. Its beak bloodying the Rabbit.")
 		if heads[2] == true {
 			fmt.Println("The Fox barks trying to restore order. But it's too late. The fight is over. The Turtle head goes limp, the neck hanging straight down in the air." +
 				"\nThe Rabbit is bleeding heavily. The Fox finishes the Rabbit in disgust. Snout covered in blood, it turns to you." +

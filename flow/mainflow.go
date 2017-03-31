@@ -91,10 +91,11 @@ func Finale(cp models.Player) (models.Player, error) {
 	//cheating to make an error with error
 	_, err := strconv.Atoi("-42")
 	if cp.Health <= 0 {
-		fmt.Println("No more fight is left. You have been defeated.")
+		fmt.Println("No more fight is left. You are too weak. You have been defeated.")
 	}
+
 	if cp.Cont == false {
-		fmt.Println("You are no longer able to continue. Oddly you have come to an end.")
+		fmt.Println("Game Over.")
 	}
 	return cp, err
 }

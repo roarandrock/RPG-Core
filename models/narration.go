@@ -11,7 +11,7 @@ type Storyblob struct {
 var Storyblobmap = map[int]Storyblob{}
 
 var (
-	i1 = "Welcome to the Stone Hills forest. You are a 13 year old member of Adventure Crew." +
+	i1 = "Welcome to the Stone Hills forest. You are a 17 year old member of Adventure Crew." +
 		"\nYou have backpacked deep into the New Mexico wilderness. Camp has been made. You are free to explore." +
 		"\nYour best friend has not joined on this trip. The other Crew members are friendly strangers." +
 		"\nMike is the group leader. He seems nice." +
@@ -29,7 +29,7 @@ var (
 	vm = "\"Hi there,\" you hear from the shore. You turn, surprised and embarrassed." +
 		"\nThere is a woman on the shore. You swear, she wasn't there before." +
 		"\nShe's bare foot and wearing a green dress. She has long black hair." +
-		"\nShe looks older, probably in high school." +
+		"\nShe looks older, like she's in College." +
 		"\nShe's smiling."
 	susm = "Susie is sitting on a rock. Her feet dangling in the air, far above the forest." +
 		"\nShe is sun tanned. Another Crew member you have seen around but do not know well." +

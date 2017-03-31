@@ -73,7 +73,7 @@ var Locationmap = map[int]Location{
 
 var (
 	s0      = "The Endless Void"
-	s1      = "A comfortable campground, shaded by trees and full of people."
+	s1      = "A comfortable campground, shaded by trees. Normally full of people but now there are only two."
 	s2      = "A deep calm lake. Good place to take a bath or catch a fish."
 	s3      = "A grand mountain rises before you. It's top rocky and free of trees. You see the trailhead."
 	s4      = "You can see the whole camp from up here."

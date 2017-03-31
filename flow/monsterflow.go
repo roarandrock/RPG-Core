@@ -39,6 +39,7 @@ func monsterFlow(cp models.Player) models.Player {
 		}
 	}
 	cm.Engaged = true
+	lightused := false //cheat for flashlight
 	for cm.Engaged == true {
 		fmt.Println("What would you like to do?")
 		options := []string{"Talk", "Fight", "Run"}
@@ -46,35 +47,39 @@ func monsterFlow(cp models.Player) models.Player {
 		switch r1 {
 		case 1:
 			cm, cp = monsterTalk(cm, cp)
+			cm.Engaged = check.PContCheck(cp) //in case player dies
 		case 2: //sepearte into own function
 			fchoice := combat.FightingOptions()
 			switch fchoice {
 			case "Devil Dice":
+				fmt.Println("The", cm.ShortName, "pulls a set of dice out...does it have pockets?")
 				cp = combat.DDFlow(cp, cm)
 				cm.Engaged = false
 			case "Fists":
 				fmt.Println("You try to pummel the beast.")
 				if cm.ShortName == smiler {
 					fmt.Println("It deftly dodges your blows, smiling the whole time.")
-					fmt.Println("Eventually it gets bored and wanders off.") //but then it's not an obstacle, need the player to leave.
-					cm.Engaged = false
 				}
 			case "Teeth":
 				fmt.Println("You try to bite it.")
 				if cm.ShortName == smiler {
 					fmt.Println("It tastes awful. And returns the favor by taking a bite out of you.")
 					cp.Health = cp.Health - 10
-					fmt.Println("It wanders off into the forest. It doesn't like how you taste apparently.")
-					cm.Engaged = false
+					cm.Engaged = check.PContCheck(cp) //in case player dies
 				}
 			case "Flashlight":
 				fmt.Println("You shine the light on the creature.")
 				if cm.ShortName == smiler {
-					fmt.Println("The grin disappears and the creature takes off, sizzling under the beam of light.")
-					cm.Engaged = false
+					switch lightused {
+					case false:
+						fmt.Println("The grin disappears and the creature to sizzles under the light. You've weakened the thing.")
+						lightused = true
+						cm.Health = cm.Health / 2
+					case true:
+						fmt.Println("The smiler deflty dodges the beam of light. Not again.")
+					}
 				}
 			}
-
 		case 3:
 			_, day := models.GetTime()
 			if day == "Day" {
@@ -88,6 +93,7 @@ func monsterFlow(cp models.Player) models.Player {
 			}
 		}
 	}
+	cp.Cont = check.PContCheck(cp)
 	return cp
 }
 
@@ -122,6 +128,16 @@ func locEventCheck(cp models.Player, dest int) models.Player {
 			b1 := models.StoryblobGetByName(8)
 			fmt.Println(b1.Story)
 			cp = combat.Boss1Flow(cp)
+			b1.Shown = true
+			models.StoryblobUpdate(b1)
+		}
+	} else if cp.Loc == 8 && dest == 7 {
+		fmt.Println("Test! Triggered")
+		if check.Eventcheck(8) == true { //not showing as true!
+			fmt.Println("You see the abandoned cabin. As you approach out steps a rabbit. Or a person with a rabbit head." +
+				"It's very smooth looking. It has no eyes and no mouth. Just a rabbit nose and long ears. It turns in your direction." +
+				"And that's it! I'm done. For now. Thanks for playing.")
+			cp.Cont = false
 		}
 	}
 	return cp

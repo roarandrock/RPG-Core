@@ -65,7 +65,7 @@ var (
 	pQlist  = []presp{pq1, pq2, pq3, pGB} //list of options
 	//need to start adding player answers
 	playerA1 = []string{"I'm good", "Up and down", "Feeling shit", "Don't want to talk about it. Bye."}
-	playerA2 = []string{"Nothing.", "A strange girl.", "Shadow monsters."}
+	playerA2 = []string{"Nothing", "I can't find my flashlight", "Where is everyone?"}
 	pA2      = []presp{
 		{playerA2[0], []string{"CA21"}, 2, -1, 3}, //place depth here or on cresp? Cresp is probably better. Then remove it from presp
 		{playerA2[1], []string{"CA22"}, 2, 1, 4},
@@ -78,11 +78,10 @@ var (
 		{playerA1[3], []string{"CA14"}, 1, 0, 0},
 	}
 	//these are overly specific now. Also need someone to provide general, game info
-	playerA3 = []string{"I keep getting lost.", "I cannot find my flashlight. Do you have one?", "I need more space in my backpack. Cannot carry everything."}
+	playerA3 = []string{"I keep getting lost.", "I cannot find my flashlight. Do you have one?"}
 	pA3      = []presp{
 		{playerA3[0], []string{"CA31"}, 3, 0, 0}, //place depth here or on cresp? Cresp is probably better. Then remove it from presp
 		{playerA3[1], []string{"CA32"}, 3, 0, 0},
-		{playerA3[2], []string{"CA33"}, 3, 0, 0},
 	}
 )
 
@@ -94,7 +93,7 @@ var (
 		{mikeH[1], 1, []string{"PQ", "GB"}, "NA", 0, 0},
 		{mikeH[2], 2, []string{"PQ", "GB"}, "NA", 1, 4}}
 	mresp1 = []cresp{{"I'm good. How are you?", 0, []string{"PA", "PQ", "GB"}, "NA", 0, 0},
-		{"Honestly, not so good.", 4, []string{"CT"}, "CT1", 1, 5}} //bump this to five?
+		{"Honestly, not so good.", 3, []string{"CT"}, "CT1", 1, 5}} //bumped down to 3
 	mresp1_1 = []cresp{
 		{"Good to hear", 0, []string{"PQ", "GB"}, "NA", 1, 3},
 		{"Aren't we all little man?", 0, []string{"PQ", "GB"}, "NA", 1, 4},
@@ -103,15 +102,14 @@ var (
 	}
 	mresp2 = []cresp{
 		{"Just life and stuff.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
-		{"There are some odd things happening. What have you seen?", 2, []string{"PA", "PQ", "GB"}, "NA", 0, 0},
+		{"It is an odd place. What's bugging you?", 2, []string{"PA", "PQ", "GB"}, "NA", 0, 0},
 	}
 	mresp2_2 = []cresp{ //cheating again, only one response regardless of depth
 		{"Fair enough.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
-		{"Ha, I wouldn't call Susie strange.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
-		{"Whoa. Have you been binging on campfire ghost stories?", 0, []string{"PQ", "GB"}, "NA", 0, 0},
+		{"Bummer. Josh may have an extra.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
+		{"I suspect out hiking, riding horses, rock climbing...camp stuff. But I understand your suspicion, it seems quiet.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
 	}
 	mresp3 = []cresp{
-		//{"Dude. What's up?", 2, []string{"PA", "PQ", "GB"}, "NA", 1, 3}, need a low depth option here?
 		{"For sure dude. What's up?", 0, []string{"PA", "PQ", "GB"}, "NA", 1, 3},
 	}
 	mresp3_3 = []cresp{
@@ -203,7 +201,7 @@ func Converser(cChar models.Character) {
 			cr1, cc = characterA(ph1, cc)
 			cc.stilltalking = false
 		}
-		fmt.Println(cr1.ca, cc.qa, cc.depth)
+		fmt.Println(cr1.ca)
 		cc.Character.Depth = cc.depth //sets character depth to conversation depth
 		cc.Character = models.CharacterUpdate(cc.Character)
 	}
@@ -435,9 +433,7 @@ var (
 func ctang(cc Convo, cr1 cresp) Convo {
 	tancont := true
 	pTan := pTest1
-	cTan := mR1 //could use depth check
-	//pw := "\"" + pTan.words + "\""
-	//fmt.Println(pw)
+	cTan := mR1
 	for tancont == true {
 		cw := "\"" + cTan.words + "\""
 		fmt.Println(cw)
@@ -459,23 +455,21 @@ func ctang(cc Convo, cr1 cresp) Convo {
 			fmt.Println("It's over. Oddly.")
 			tancont = false
 		}
-		//pw = "\"" + pTan.words + "\""
-		//fmt.Println(pw)
 		cTan = *pTan.branch1
 		if cTan == mtreeGB {
 			tancont = false
 			if pTan == ptreeGB1 {
-				cc.depth = 1 //need to make different outcomes for different characters. For now, cheating
+				cc.depth = 1
 			} else if pTan == ptreeGB2 {
 				cc.depth = 5
 				if cc.Character.Name == "Mike" {
-					ni := models.ItemGetByName("large pack")
-					fmt.Println("\"Dude, take my", ni.ShortName, "\"")
-					ni.Loc = 19
-					models.ItemUpdate(ni)
-					oi := models.ItemGetByName("small pack")
-					oi.Loc = 21
-					models.ItemUpdate(oi)
+					//ni := models.ItemGetByName("large pack")
+					fmt.Println("\"Got it dude. If you're pissed, I'd recommend taking a dip in the lake. It's a wet zen.\"")
+					//ni.Loc = 19
+					//models.ItemUpdate(ni)
+					//oi := models.ItemGetByName("small pack")
+					//oi.Loc = 21
+					//models.ItemUpdate(oi)
 				}
 			}
 			cw := "\"" + cTan.words + "\""
@@ -486,51 +480,3 @@ func ctang(cc Convo, cr1 cresp) Convo {
 	cc.qa = "GB"
 	return cc
 }
-
-/* old Tangent attempt
-
-//trying to get a tangent working
-mikeCT1GB = []string{"No worries. Catch up later"}
-mikeCT1   = []string{
-  "It's kind of tough to talk about. Sure you want to hear?",
-  "Well, this is my last year here. Have to spend next summer working.",
-  "The whole summer. Only way to get to college.",
-  "Thanks. I feel better."}
-pCT1     = []string{"Of course dude.", "Actually not really.", "About you being a pussy?", "Hold that thought, I got to go."}
-pCT2     = []string{"What is up with that?"}
-pCT3     = []string{"Sorry to hear"}
-mikeCT1a = []string{"Haha. Exactly. Can you handle it?"}
-pCT1a    = []string{"Yes"}
-pCT      = [][]string{pCT1, pCT2, pCT3}
-
-/* barely works
-cT := mikeCT1
-pT := pCT
-pTGB := []string{pGB.pq}
-cGB := mikeCT1GB
-tancont := true
-i := 0
-for tancont == true {
-  fmt.Println(cT[i])
-  d1 := inputs.StringarrayInput(pT[i]) //make one that takes in player responces
-  switch d1 {
-  case 1:
-    //nothing, only works now because of only one choice
-  case 2:
-    fmt.Println(cGB[0])
-    tancont = false
-  case 3:
-    fmt.Println(mikeCT1a[0])
-    pCT1a = append(pCT1a, pTGB[0])
-    d2 := inputs.StringarrayInput(pCT1a)
-    if d2 == 2 {
-      fmt.Println(cGB[0])
-      tancont = false
-    }
-  case 4:
-    fmt.Println(cGB[0])
-    tancont = false
-  }
-  i++
-}
-*/
