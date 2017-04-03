@@ -72,7 +72,7 @@ func monsterFlow(cp models.Player) models.Player {
 				if cm.ShortName == smiler {
 					switch lightused {
 					case false:
-						fmt.Println("The grin disappears and the creature to sizzles under the light. You've weakened the thing.")
+						fmt.Println("The grin disappears and the creature sizzles under the light. You have weakened it.")
 						lightused = true
 						cm.Health = cm.Health / 2
 					case true:

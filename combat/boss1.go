@@ -93,9 +93,7 @@ func Boss1Flow(cp models.Player) models.Player {
 				fmt.Println("Oddly, no effect on the beast")
 			}
 		case 3:
-			fmt.Println("You run")
-			//need to implement death here.
-			bfcont = false //for testing
+			fmt.Println("You try to run. The bird's claw picks you up and plops you back where you started.")
 		}
 		if check.PContCheck(cp) == false {
 			fmt.Println("You are defeated. The bird claw gently plucks the devil dice from your corpse and flies away.")
@@ -103,8 +101,7 @@ func Boss1Flow(cp models.Player) models.Player {
 		}
 	}
 	//finales
-
-	return cp //how to force exit when lose?
+	return cp
 }
 
 func b1Chat(heads []bool, cpH int) ([]bool, int) {

@@ -11,15 +11,15 @@ type Storyblob struct {
 var Storyblobmap = map[int]Storyblob{}
 
 var (
-	i1 = "Welcome to the Stone Hills forest. You are a 17 year old member of Adventure Crew." +
-		"\nYou have backpacked deep into the New Mexico wilderness. Camp has been made. You are free to explore." +
-		"\nYour best friend has not joined on this trip. The other Crew members are friendly strangers." +
-		"\nMike is the group leader. He seems nice." +
-		"\nThe adults keep to themselves. They have been distracted the last couple days." +
+	i1 = "Welcome to camp. You have spent the last two days backpacking deep into the New Mexico wilderness." +
 		"\nThe ghost stories told at night are excellent. This place is bursting with scenery and life." +
-		"\nYet, you have trouble enjoying yourself. You are lonely. The forests looks more threatening than welcoming." +
-		"\nAnd at night, you are scared to be anywhere without a light." +
-		"\nWhich is a problem. Because you cannot find your flashlight. Last night you had it, this morning it was gone."
+		"\nYou are a 17 year old member of Adventure Crew." +
+		"\nThe other Crew members are friendly strangers. You do not know any of them well." +
+		"\nYet, you have trouble relaxing and enjoying yourself." +
+		"\nYou are lonely. You do not really know anyone on this crew." +
+		"\nThe deeper you get into the backcountry, the more everything seems off." +
+		"\nAnd you cannot find your flashlight. Last night you had it, this morning it was gone." +
+		"\nMike is the group leader. He may be able to help."
 	sm = "A small critter scurries around the forest. It has two little arms and two little legs." +
 		"\nIt has too many little teeth in a perpetual smile. Everything is murky shadow except for that white smile."
 	mm = "Mike is friendly but you are not friends. Your only friend in the Crew was Steve and he's not here." +

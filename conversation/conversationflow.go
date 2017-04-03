@@ -93,7 +93,7 @@ var (
 		{mikeH[1], 1, []string{"PQ", "GB"}, "NA", 0, 0},
 		{mikeH[2], 2, []string{"PQ", "GB"}, "NA", 1, 4}}
 	mresp1 = []cresp{{"I'm good. How are you?", 0, []string{"PA", "PQ", "GB"}, "NA", 0, 0},
-		{"Honestly, not so good.", 3, []string{"CT"}, "CT1", 1, 5}} //bumped down to 3
+		{"Honestly, not so good.", 1, []string{"CT"}, "CT1", 1, 5}} //bumped down to 1
 	mresp1_1 = []cresp{
 		{"Good to hear", 0, []string{"PQ", "GB"}, "NA", 1, 3},
 		{"Aren't we all little man?", 0, []string{"PQ", "GB"}, "NA", 1, 4},
@@ -107,7 +107,7 @@ var (
 	mresp2_2 = []cresp{ //cheating again, only one response regardless of depth
 		{"Fair enough.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
 		{"Bummer. Josh may have an extra.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
-		{"I suspect out hiking, riding horses, rock climbing...camp stuff. But I understand your suspicion, it seems quiet.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
+		{"I suspect out hiking, riding horses, rock climbing...camp stuff.", 0, []string{"PQ", "GB"}, "NA", 0, 0},
 	}
 	mresp3 = []cresp{
 		{"For sure dude. What's up?", 0, []string{"PA", "PQ", "GB"}, "NA", 1, 3},
@@ -427,7 +427,7 @@ var (
 	ptreeGB  = dialog{words: "Got to go. Later.", branch1: &mtreeGB}
 	ptreeGB1 = dialog{words: "Sorry to disappoint. At least I don't set up little tests for people. Later douchebag.", branch1: &mtreeGB}
 	ptreeGB2 = dialog{words: "You're solid too. But don't test me again like that.", branch1: &mtreeGB}
-	mtreeGB  = dialog{words: "Lates."}
+	mtreeGB  = dialog{words: "Got it dude. If you're pissed, I'd recommend taking a dip in the lake. It's a wet zen."}
 )
 
 func ctang(cc Convo, cr1 cresp) Convo {
@@ -463,13 +463,10 @@ func ctang(cc Convo, cr1 cresp) Convo {
 			} else if pTan == ptreeGB2 {
 				cc.depth = 5
 				if cc.Character.Name == "Mike" {
-					//ni := models.ItemGetByName("large pack")
-					fmt.Println("\"Got it dude. If you're pissed, I'd recommend taking a dip in the lake. It's a wet zen.\"")
-					//ni.Loc = 19
-					//models.ItemUpdate(ni)
-					//oi := models.ItemGetByName("small pack")
-					//oi.Loc = 21
-					//models.ItemUpdate(oi)
+					mresp1 = []cresp{
+						{"I'm solid. I highly recommend getting to know the other Crew members better. " +
+							"They're a world class bunch.", 0, []string{"GB"}, "NA", 0, 0},
+					}
 				}
 			}
 			cw := "\"" + cTan.words + "\""

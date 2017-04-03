@@ -141,17 +141,36 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 			fmt.Println("Veronica watches you swim. It's awkward.") //cheating
 		}
 	case "Forage":
-		fmt.Println("You find some random berries. Do you want to eat them?")
-		options := []string{"Yes", "No"}
-		r1 := inputs.StringarrayInput(options)
-		switch r1 {
-		case 1:
-			fmt.Println("Ouch. That burns going in. Probably when it goes out too.")
-			cp.Health = cp.Health - 20
-			cp.Cont = check.PContCheck(cp)
-		case 2:
-			fmt.Println("You return them to the forest.")
+		_, cd := models.GetTime()
+		switch cd {
+		case "Day":
+			fmt.Println("You find some random berries. Do you want to eat them?")
+			options := []string{"Yes", "No"}
+			r1 := inputs.StringarrayInput(options)
+			switch r1 {
+			case 1:
+				fmt.Println("Ouch. That burns going in. Probably when it goes out too.")
+				cp.Health = cp.Health - 20
+				cp.Cont = check.PContCheck(cp)
+			case 2:
+				fmt.Println("You return them to the forest.")
+			}
+		default:
+			fmt.Println("It's harder to see in this light. But you stumble across a mushroom. Do you want to eat it?")
+			options := []string{"Yes", "No"}
+			r1 := inputs.StringarrayInput(options)
+			switch r1 {
+			case 1:
+				fmt.Println("Whoa.")
+				cp.Health = cp.Health + 25
+				cp.Height = 1
+			case 2:
+				fmt.Println("You return it to the forest.")
+			}
 		}
+	case "Admire Scenery":
+		fmt.Println("That's some nice scenery.")
+		models.UpdateTime(100)
 	case "Menu":
 		//save, inventory, quit
 		fmt.Println("1. Save\n2. Inventory\n3. Quit")
