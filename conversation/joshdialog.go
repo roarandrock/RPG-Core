@@ -83,7 +83,7 @@ var (
 	//pBye     = pD{}
 
 	//Depth fail
-	jDfail = cD{"No. I don't really know you and I got stuff to do. Just leave me alone.", []*pD{&pExit}, 0}
+	jDfail = cD{"What? No. I don't really know you. Just leave me alone.", []*pD{&pExit}, 0}
 
 	//need Normal/2nd conversation
 	jstart = cD{"Odd Silence", []*pD{&pH0, &pH1}, 0}

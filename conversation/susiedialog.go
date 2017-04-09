@@ -88,7 +88,7 @@ var (
 	pisQ17s = []string{"I know that. Do you know Veronica? I haven't seen her before.", "Wait, you're a girl?"}
 	pisQ17  = pD{pisQ17s[0], &siA17, 0}
 	pisQ18  = pD{pisQ17s[1], &siA18, 1}
-	siA17s  = []string{"There's no Veronica in our Crew. Maybe she's from another Crew? We're not then only one at camp.",
+	siA17s  = []string{"There's no Veronica in our Crew. Maybe she's from another Crew? We're not the only Crew camping here.",
 		"Just because I can kick your butt, doesn't mean I'm not a girl."}
 	siA17 = cD{siA17s[0], []*pD{&pisQ19, &pisQ20}, 0}
 	siA18 = cD{siA17s[1], []*pD{&pDefault}, 0}

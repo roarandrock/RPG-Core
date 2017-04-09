@@ -15,8 +15,7 @@ var (
 		"\nThe ghost stories told at night are excellent. This place is bursting with scenery and life." +
 		"\nYou are a 17 year old member of Adventure Crew." +
 		"\nThe other Crew members are friendly strangers. You do not know any of them well." +
-		"\nYet, you have trouble relaxing and enjoying yourself." +
-		"\nYou are lonely. You do not really know anyone on this crew." +
+		"\nYou are growing lonely. You do not really know anyone on this crew." +
 		"\nThe deeper you get into the backcountry, the more everything seems off." +
 		"\nAnd you cannot find your flashlight. Last night you had it, this morning it was gone." +
 		"\nMike is the group leader. He may be able to help."
@@ -25,7 +24,7 @@ var (
 	mm = "Mike is friendly but you are not friends. Your only friend in the Crew was Steve and he's not here." +
 		"\nMike is a little older, more athletic and confident than you see yourself."
 	jm = "You know nothing about Josh." +
-		"\nHe appears awkward. A little loud when he does talk. His laughter strained from trying too hard." //add more?n
+		"\nHe appears awkward. When he talks, it's a little too loud. His laughter is strained from trying too hard." //add more?n
 	vm = "\"Hi there,\" you hear from the shore. You turn, surprised and embarrassed." +
 		"\nThere is a woman on the shore. You swear, she wasn't there before." +
 		"\nShe's bare foot and wearing a green dress. She has long black hair." +

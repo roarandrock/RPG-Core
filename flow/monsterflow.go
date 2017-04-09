@@ -132,11 +132,32 @@ func locEventCheck(cp models.Player, dest int) models.Player {
 			models.StoryblobUpdate(b1)
 		}
 	} else if cp.Loc == 8 && dest == 7 {
-		fmt.Println("Test! Triggered")
 		if check.Eventcheck(8) == true { //not showing as true!
-			fmt.Println("You see the abandoned cabin. As you approach out steps a rabbit. Or a person with a rabbit head." +
-				"It's very smooth looking. It has no eyes and no mouth. Just a rabbit nose and long ears. It turns in your direction." +
-				"And that's it! I'm done. For now. Thanks for playing.")
+			fmt.Println("You see the abandoned cabin. \nAs you approach out steps a rabbit. Or a person with a rabbit head. " +
+				"It's very smooth looking. It has no eyes and no mouth. Just a rabbit nose and long ears. \nIt turns in your direction." +
+				"\n\nAnd that's it! I'm done. For now. Thanks for playing.")
+			fmt.Println("Player health:", cp.Health)
+			fmt.Println("Player height:", cp.Height)
+			fl := models.ItemGetByName("flashlight")
+			if fl.Loc == 20 {
+				fmt.Println("You got the flashlight from Josh.")
+			} else {
+				fmt.Println("You got here without the flashlight.")
+			}
+			/*mike := models.CharacterGetByName("mike")
+			fmt.Println(mike.Depth)
+			switch mike.Depth {
+			case 1:
+				fmt.Println("Mike thinks you are a gobshite.")
+			case 2:
+				fmt.Println("Mike thinks you are not great.")
+			case 3:
+				fmt.Println("Mike thinks you are ok.")
+			case 4:
+				fmt.Println("Mike thinks you are a good guy.")
+			case 5:
+				fmt.Println("Mike thinks you are awesome.")
+			}*/
 			cp.Cont = false
 		}
 	}

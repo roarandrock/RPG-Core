@@ -71,7 +71,7 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 		}
 		mc := monstercheck(cp)
 		if mc == true {
-			fmt.Println("Monsters are here!")
+			//fmt.Println("Monsters are here!")
 			cp = monsterFlow(cp)
 		}
 	case "Talk":
@@ -112,7 +112,7 @@ func actieSelector(act string, cp models.Player) (models.Player, error) {
 			cp.Health = 100
 		}
 	case "Hike":
-		dt := 400
+		dt := 300
 		models.UpdateTime(dt)
 		fmt.Println("You spend three hours ascending and descending the switchbacks. You rise above the trees." +
 			"Over the trees and onto rock under open sky. You can see different parts of camp." +
