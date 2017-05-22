@@ -1,1 +1,1 @@
-First attempt at an RNG engine
+Pilot game - RPG set at a camp
