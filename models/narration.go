@@ -14,8 +14,8 @@ var (
 	i1 = "Welcome to camp. You have spent the last two days backpacking deep into the New Mexico wilderness." +
 		"\nThe ghost stories told at night are excellent. This place is bursting with scenery and life." +
 		"\nYou are a 17 year old member of Adventure Crew." +
-		"\nThe other Crew members are friendly strangers. You do not know any of them well." +
-		"\nYou are growing lonely. You do not really know anyone on this crew." +
+		"\nThe other Crew members are friendly strangers." +
+		"\nYou do not really know anyone on this crew. You are growing lonely." +
 		"\nThe deeper you get into the backcountry, the more everything seems off." +
 		"\nAnd you cannot find your flashlight. Last night you had it, this morning it was gone." +
 		"\nMike is the group leader. He may be able to help."
