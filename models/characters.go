@@ -30,10 +30,10 @@ var charactermap = map[string]Character{}
 //Characterset sets initial charactermap
 func Characterset() {
 	//defaults
-	mike := Character{"Mike", 1, true, "Real", 3}
-	josh := Character{"Josh", 1, true, "Real", 3}
+	mike     := Character{"Mike",     1,  true, "Real",      3}
+	josh     := Character{"Josh",     1,  true, "Real",      3}
 	veronica := Character{"Veronica", 40, true, "Imaginary", 3}
-	susie := Character{"Susie", 4, true, "Real", 3}
+	susie    := Character{"Susie",    4,  true, "Real",      3}
 
 	CharacterUpdate(mike)
 	CharacterUpdate(josh)
